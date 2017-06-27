@@ -1,4 +1,6 @@
 package hu.voga.space.entity;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -6,6 +8,8 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "grid")
 public class Grid {
 
@@ -24,36 +28,4 @@ public class Grid {
   @Fetch(FetchMode.JOIN)
   @JoinColumn(name = "ss_id")
   private SolarSystem solarSystem;
-
-  public Long getGridId() {
-    return gridId;
-  }
-
-  public void setGridId(Long gridId) {
-    this.gridId = gridId;
-  }
-
-  public Integer getGridX() {
-    return gridX;
-  }
-
-  public void setGridX(Integer gridX) {
-    this.gridX = gridX;
-  }
-
-  public Integer getGridY() {
-    return gridY;
-  }
-
-  public void setGridY(Integer gridY) {
-    this.gridY = gridY;
-  }
-
-  public SolarSystem getSolarSystem() {
-    return solarSystem;
-  }
-
-  public void setSolarSystem(SolarSystem solarSystem) {
-    this.solarSystem = solarSystem;
-  }
 }

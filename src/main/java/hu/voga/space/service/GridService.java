@@ -2,7 +2,6 @@ package hu.voga.space.service;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import hu.voga.space.dto.GridDto;
 import hu.voga.space.dto.converter.GridConverter;
 import hu.voga.space.entity.Grid;
@@ -53,7 +52,7 @@ public class GridService {
         JPAQuery<Grid> query = new JPAQuery<>(entityManager);
         List<Tuple> fetch = query.select(QGrid.grid, QSolarSystem.solarSystem)
                 .from(QGrid.grid)
-                .join(QGrid.grid.solarSystem, QSolarSystem.solarSystem)
+                .leftJoin(QGrid.grid.solarSystem, QSolarSystem.solarSystem)
                 .fetch();
 
         return fetch.stream()
