@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `grid` (
   CONSTRAINT `FK_grid_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=90001 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.grid: ~10 219 rows (approximately)
+-- Dumping data for table space.grid: ~10 000 rows (approximately)
 /*!40000 ALTER TABLE `grid` DISABLE KEYS */;
 INSERT INTO `grid` (`grid_id`, `grid_x`, `grid_y`, `ss_id`) VALUES
 	(80001, 2340, 5220, 195481),
@@ -10316,6 +10316,11 @@ CREATE TABLE IF NOT EXISTS `resource` (
 
 -- Dumping data for table space.resource: ~0 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
+INSERT INTO `resource` (`rs_id`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
+	(1, 'TITANIUM', 0.5, 294, '2017-06-28 22:43:15', 194067),
+	(2, 'SUPER_PLASTIC', 0.7, 253, '2017-06-28 22:43:15', 194067),
+	(3, 'CREW', 0.3, 174, '2017-06-28 22:43:15', 194067),
+	(4, 'ENERGY', 0.2, 219, '2017-06-28 22:43:15', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 
 
