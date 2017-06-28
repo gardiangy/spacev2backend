@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,4 +37,7 @@ public class SolarSystem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_guid", nullable = true)
     private User user;
+
+    @OneToMany(mappedBy = "solarSystem", fetch = FetchType.LAZY)
+    private List<Planet> planets;
 }

@@ -33,6 +33,10 @@ public class SolarSystemService {
     private UserRepository userRepository;
 
 
+    public SolarSystem getOne(Long ssId){
+        return solarSystemRepository.getOne(ssId);
+    }
+
     public List<SolarSystem> findDiscoveredSystemForUser(String userGuid) {
         final User user = userRepository.getOne(userGuid);
         return discoveredRepository.findByUser(user)

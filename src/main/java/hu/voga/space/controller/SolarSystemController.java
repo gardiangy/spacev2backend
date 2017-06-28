@@ -1,6 +1,7 @@
 package hu.voga.space.controller;
 
 import hu.voga.space.controller.response.Response;
+import hu.voga.space.dto.converter.PlanetConverter;
 import hu.voga.space.dto.converter.SolarSystemConverter;
 import hu.voga.space.service.SolarSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class SolarSystemController {
     @Autowired
     private SolarSystemConverter solarSystemConverter;
 
+    @Autowired
+    private PlanetConverter planetConverter;
+
 
     @RequestMapping("/user/{userGuid}/discovered")
     @ResponseBody
@@ -29,6 +33,15 @@ public class SolarSystemController {
         return Response.createOKResponse(solarSystemService.findDiscoveredSystemForUser(userGuid)
                 .stream()
                 .map(solarSystemConverter::convertToDto)
+                .collect(Collectors.toList()));
+    }
+
+    @RequestMapping("/{ssId}/planet")
+    @ResponseBody
+    public Response getPlanetsForSolarSystem(@PathVariable("ssId") Long ssId) {
+        return Response.createOKResponse(solarSystemService.getOne(ssId).getPlanets()
+                .stream()
+                .map(planetConverter::convertToDto)
                 .collect(Collectors.toList()));
     }
 }

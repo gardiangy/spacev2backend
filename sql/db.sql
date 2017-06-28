@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `discovered` (
   CONSTRAINT `FK_discovered_system_user` FOREIGN KEY (`user_guid`) REFERENCES `user` (`user_guid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.discovered: ~0 rows (approximately)
+-- Dumping data for table space.discovered: ~22 rows (approximately)
 /*!40000 ALTER TABLE `discovered` DISABLE KEYS */;
 INSERT INTO `discovered` (`disc_id`, `disc_date`, `user_guid`, `ss_id`) VALUES
 	(1, '2017-06-27 22:45:55', '3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 194032),
@@ -10213,14 +10213,7 @@ CREATE TABLE IF NOT EXISTS `planet` (
   `pl_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `pl_type` varchar(255) NOT NULL,
   `pl_size` int(11) NOT NULL,
-  `pl_orbit_radius_major` int(11) DEFAULT NULL,
-  `pl_orbit_radius_minor` int(11) DEFAULT NULL,
-  `pl_orbit_center_x` int(11) DEFAULT NULL,
-  `pl_orbit_center_y` int(11) DEFAULT NULL,
-  `pl_velocity` double DEFAULT NULL,
-  `pl_alpha` double DEFAULT NULL,
-  `pl_last_calculation` datetime DEFAULT NULL,
-  `ss_id` bigint(20) DEFAULT NULL,
+  `ss_id` bigint(20) NOT NULL,
   PRIMARY KEY (`pl_id`),
   KEY `FK_planet_solar_system` (`ss_id`),
   CONSTRAINT `FK_planet_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
@@ -10228,12 +10221,12 @@ CREATE TABLE IF NOT EXISTS `planet` (
 
 -- Dumping data for table space.planet: ~5 rows (approximately)
 /*!40000 ALTER TABLE `planet` DISABLE KEYS */;
-INSERT INTO `planet` (`pl_id`, `pl_type`, `pl_size`, `pl_orbit_radius_major`, `pl_orbit_radius_minor`, `pl_orbit_center_x`, `pl_orbit_center_y`, `pl_velocity`, `pl_alpha`, `pl_last_calculation`, `ss_id`) VALUES
-	(1, 'ROCK', 9, 700, 420, 0, 0, 0.0002, 0.6965937093856486, '2016-02-07 20:01:10', 192875),
-	(2, 'ROCK', 9, 500, 292, 0, 0, 0.0004, 0.7931874187680077, '2016-02-07 20:01:10', 192875),
-	(3, 'ROCK', 9, 300, 197, 0, 0, 0.002, 3.4859370938159793, '2016-02-07 20:01:10', 192875),
-	(4, 'ROCK', 9, 900, 540, 0, 0, 0.0001, 0.1622968546920966, '2016-02-07 20:01:10', 192875),
-	(5, 'ROCK', 9, 600, 360, 0, 0, 0.0003, 0.46889056407548974, '2016-02-07 20:01:10', 192875);
+INSERT INTO `planet` (`pl_id`, `pl_type`, `pl_size`, `ss_id`) VALUES
+	(1, 'ROCK', 9, 194067),
+	(2, 'ROCK', 9, 194067),
+	(3, 'ROCK', 9, 194068),
+	(4, 'ROCK', 9, 194068),
+	(5, 'ROCK', 9, 194068);
 /*!40000 ALTER TABLE `planet` ENABLE KEYS */;
 
 
