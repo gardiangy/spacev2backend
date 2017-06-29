@@ -10,6 +10,7 @@ import lombok.Setter;
 public class ResourceDto {
 
     private Long id;
+    private String name;
     private Long amount;
     private Double rate;
     private ResourceType type;

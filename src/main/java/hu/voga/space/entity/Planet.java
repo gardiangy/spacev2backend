@@ -24,6 +24,9 @@ public class Planet {
   @Column(name = "pl_size")
   private Integer plSize;
 
+  @Column(name = "pl_slots")
+  private Integer plSlots;
+
   @ManyToOne
   @JoinColumn(name = "ss_id")
   private SolarSystem solarSystem;

@@ -12,6 +12,7 @@ public class PlanetDto {
     private Long id;
     private PlanetType planetType;
     private Integer size;
+    private Integer slots;
 
     public PlanetDto() {
     }

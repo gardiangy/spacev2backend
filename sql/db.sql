@@ -10213,6 +10213,7 @@ CREATE TABLE IF NOT EXISTS `planet` (
   `pl_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `pl_type` varchar(255) NOT NULL,
   `pl_size` int(11) NOT NULL,
+  `pl_slots` int(11) NOT NULL,
   `ss_id` bigint(20) NOT NULL,
   PRIMARY KEY (`pl_id`),
   KEY `FK_planet_solar_system` (`ss_id`),
@@ -10221,12 +10222,12 @@ CREATE TABLE IF NOT EXISTS `planet` (
 
 -- Dumping data for table space.planet: ~5 rows (approximately)
 /*!40000 ALTER TABLE `planet` DISABLE KEYS */;
-INSERT INTO `planet` (`pl_id`, `pl_type`, `pl_size`, `ss_id`) VALUES
-	(1, 'ROCK', 9, 194067),
-	(2, 'ROCK', 9, 194067),
-	(3, 'ROCK', 9, 194068),
-	(4, 'ROCK', 9, 194068),
-	(5, 'ROCK', 9, 194068);
+INSERT INTO `planet` (`pl_id`, `pl_type`, `pl_size`,`pl_slots`, `ss_id`) VALUES
+	(1, 'ROCK', 9, 9, 194067),
+	(2, 'ROCK', 9, 9, 194067),
+	(3, 'ROCK', 9, 9, 194068),
+	(4, 'ROCK', 9, 9, 194068),
+	(5, 'ROCK', 9, 9, 194068);
 /*!40000 ALTER TABLE `planet` ENABLE KEYS */;
 
 
@@ -10304,6 +10305,7 @@ INSERT INTO `planet_slot` (`pls_id`, `pl_id`, `pls_code`, `pls_type`, `pls_order
 DROP TABLE IF EXISTS `resource`;
 CREATE TABLE IF NOT EXISTS `resource` (
   `rs_id` bigint(20) NOT NULL AUTO_INCREMENT,
+	`rs_name` varchar(255) NOT NULL,
   `rs_type` varchar(255) NOT NULL,
   `rs_rate` double NOT NULL,
   `rs_amount` bigint(20) NOT NULL,
@@ -10316,11 +10318,11 @@ CREATE TABLE IF NOT EXISTS `resource` (
 
 -- Dumping data for table space.resource: ~0 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
-INSERT INTO `resource` (`rs_id`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
-	(1, 'TITANIUM', 0.5, 294, '2017-06-28 22:43:15', 194067),
-	(2, 'SUPER_PLASTIC', 0.7, 253, '2017-06-28 22:43:15', 194067),
-	(3, 'CREW', 0.3, 174, '2017-06-28 22:43:15', 194067),
-	(4, 'ENERGY', 0.2, 219, '2017-06-28 22:43:15', 194067);
+INSERT INTO `resource` (`rs_id`, `rs_name`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
+	(1,'Titanium', 'TITANIUM', 0.5, 294, '2017-06-28 22:43:15', 194067),
+	(2,'SuperPlastic', 'SUPER_PLASTIC', 0.7, 253, '2017-06-28 22:43:15', 194067),
+	(3,'Crew', 'CREW', 0.3, 174, '2017-06-28 22:43:15', 194067),
+	(4,'Energy', 'ENERGY', 0.2, 219, '2017-06-28 22:43:15', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 
 

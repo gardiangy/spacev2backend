@@ -18,6 +18,9 @@ public class Resource {
   @Column(name = "rs_id")
   private Long rsId;
 
+  @Column(name = "rs_name")
+  private String rsName;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "rs_type")
   private ResourceType rsType;
