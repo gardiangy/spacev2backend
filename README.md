@@ -1,7 +1,15 @@
 # spacev2backend
 
-idea lombok plugin install
+<strong>idea plugins</strong>
 
-run sql
-mvn clean install
-mvn spring-boot::run
+<ul>
+    <li>lombok</li>
+</ul>
+
+<strong>steps</strong>
+
+<ul>
+    <li>run sql</li>
+    <li>mvn clean install</li>
+    <li>mvn spring-boot::run</li>
+</ul>
