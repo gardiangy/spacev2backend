@@ -13,7 +13,6 @@ public class BuildingDto {
 
     private Long id;
     private String planetType;
-    private List<BuildingDto> buildings;
 
     public BuildingDto() {
     }
