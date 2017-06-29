@@ -21,4 +21,8 @@ public class PlanetService {
 
     public Planet getOne(Long planetId) { return planetRepository.getOne(planetId); }
 
+    public Planet save(Planet planet) {
+        return planetRepository.save(planet);
+    }
+
 }

@@ -1,6 +1,7 @@
 package hu.voga.space.controller;
 
 import hu.voga.space.controller.response.Response;
+import hu.voga.space.dto.PlanetDto;
 import hu.voga.space.dto.converter.PlanetConverter;
 import hu.voga.space.entity.Planet;
 import hu.voga.space.service.PlanetService;
@@ -24,6 +25,13 @@ public class PlanetController {
     @ResponseBody
     public Response getPlanetById(@PathVariable("planetId") Long planetId){
         return Response.createOKResponse( planetConverter.convertToDto( planetService.getOne(planetId) ) );
+    }
+
+    @RequestMapping( value = "/save", method = RequestMethod.POST)
+    public Response savePlanet(@RequestBody PlanetDto planet){
+        return Response.createOKResponse(
+                planetConverter.convertToDto( planetService.save( planetConverter.convertToEntity( planet )) )
+        );
     }
 
 }
