@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Implementation of the User Service.
@@ -45,9 +46,14 @@ public class ConstructionService {
     construction.setCtBuildingType(buildingType);
     construction.setCtStart(new Date());
     LocalDateTime start = LocalDateTime.now();
-    construction.setCtEnd(Date.from(start.plusMinutes(2).atZone(ZoneId.systemDefault()).toInstant()));
+    construction.setCtEnd(Date.from(start.plusMinutes(1).atZone(ZoneId.systemDefault()).toInstant()));
     construction.setPlanet(planet);
     return constructionRepository.save(construction);
+  }
+
+  public List<Construction> getAllByPlanet(Long planetId) {
+    Planet planet = planetService.getOne(planetId);
+    return constructionRepository.findByPlanet(planet);
   }
 
 }

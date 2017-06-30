@@ -9,6 +9,9 @@ import hu.voga.space.service.ConstructionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/construction")
@@ -26,6 +29,16 @@ public class ConstructionController {
                                      @RequestBody ConstructionDto constructionDto) throws SpaceException {
         Construction construction = constructionService.constructBuilding(constructionDto.getBuildingType(), planetId);
         return Response.createOKResponse( constructionConverter.convertToDto(construction) );
+    }
+
+    @RequestMapping(value = "planet/{planetId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Response getConstructionByPlanet(@PathVariable("planetId") Long planetId) throws SpaceException {
+        List<Construction> constructions = constructionService.getAllByPlanet(planetId);
+        return Response.createOKResponse( constructions
+        .stream()
+        .map(constructionConverter::convertToDto)
+        .collect(Collectors.toList()));
     }
 
 }
