@@ -20,14 +20,14 @@ public class User {
   @Id
   @GeneratedValue(generator="system-uuid")
   @GenericGenerator(name="system-uuid", strategy = "uuid")
-  @Column(name = "user_guid")
-  private String userGuid;
+  @Column(name = "uuid")
+  private String uuid;
 
-  @Column(name = "user_name")
-  private String userName;
+  @Column(name = "name")
+  private String name;
 
-  @Column(name = "user_email")
-  private String userEmail;
+  @Column(name = "email")
+  private String email;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private List<SolarSystem> solarSystems;
