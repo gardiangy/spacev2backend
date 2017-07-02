@@ -35,7 +35,7 @@ public class SolarSystem {
     private Integer planetCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_guid", nullable = true)
+    @JoinColumn(name = "user_uuid", nullable = true)
     private User user;
 
     @OneToMany(mappedBy = "solarSystem", fetch = FetchType.LAZY)

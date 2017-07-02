@@ -37,8 +37,8 @@ public class SolarSystemService {
         return solarSystemRepository.getOne(ssId);
     }
 
-    public List<SolarSystem> findDiscoveredSystemForUser(String userGuid) {
-        final User user = userRepository.getOne(userGuid);
+    public List<SolarSystem> findDiscoveredSystemForUser(String uuid) {
+        final User user = userRepository.getOne(uuid);
         return discoveredRepository.findByUser(user)
                 .stream()
                 .map(Discovered::getSolarSystem)

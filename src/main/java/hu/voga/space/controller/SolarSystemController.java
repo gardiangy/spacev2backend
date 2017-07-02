@@ -36,10 +36,10 @@ public class SolarSystemController {
     private ResourceConverter resourceConverter;
 
 
-    @RequestMapping("/user/{userGuid}/discovered")
+    @RequestMapping("/user/{uuid}/discovered")
     @ResponseBody
-    public Response getDiscoveredSystems(@PathVariable("userGuid") String userGuid) {
-        return Response.createOKResponse(solarSystemService.findDiscoveredSystemForUser(userGuid)
+    public Response getDiscoveredSystems(@PathVariable("uuid") String uuid) {
+        return Response.createOKResponse(solarSystemService.findDiscoveredSystemForUser(uuid)
                 .stream()
                 .map(solarSystemConverter::convertToDto)
                 .collect(Collectors.toList()));

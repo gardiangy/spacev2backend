@@ -24,7 +24,7 @@ public class Discovered {
     private SolarSystem solarSystem;
 
     @ManyToOne
-    @JoinColumn(name = "u_uuid")
+    @JoinColumn(name = "user_uuid")
     private User user;
 
 }
