@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `cargo` (
   CONSTRAINT `FK__fleet` FOREIGN KEY (`fl_id`) REFERENCES `fleet` (`fl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.cargo: ~4 rows (approximately)
+-- Dumping data for table space.cargo: ~12 rows (approximately)
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
 INSERT INTO `cargo` (`cg_id`, `cg_type`, `cg_sub_type`, `cg_amount`, `fl_id`) VALUES
 	(103, 'RESOURCE', 'ZENIT', 200, 59),
@@ -77,12 +77,18 @@ CREATE TABLE IF NOT EXISTS `construction` (
   PRIMARY KEY (`ct_id`),
   KEY `FK_construction_planet_slot` (`pl_id`),
   CONSTRAINT `FK_construction_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.construction: ~0 rows (approximately)
+-- Dumping data for table space.construction: ~7 rows (approximately)
 /*!40000 ALTER TABLE `construction` DISABLE KEYS */;
 INSERT INTO `construction` (`ct_id`, `ct_type`, `ct_building_type`, `ct_unit_type`, `ct_start`, `ct_end`, `pl_id`) VALUES
-	(1, 'BUILDING', 'SHIPYARD', NULL, '2017-06-29 23:20:40', '2017-06-29 23:22:40', 2);
+	(1, 'BUILDING', 'SHIPYARD', NULL, '2017-06-29 23:20:40', '2017-06-29 23:22:40', 2),
+	(2, 'BUILDING', 'MINING_STATION', NULL, '2017-06-30 19:37:22', '2017-06-30 19:38:22', 1),
+	(3, 'BUILDING', 'MINING_STATION', NULL, '2017-06-30 19:38:56', '2017-06-30 19:39:56', 1),
+	(4, 'BUILDING', 'MINING_STATION', NULL, '2017-06-30 19:42:58', '2017-06-30 19:43:58', 1),
+	(5, 'BUILDING', 'MINING_STATION', NULL, '2017-06-30 19:45:43', '2017-06-30 19:46:43', 1),
+	(6, 'BUILDING', 'MINING_STATION', NULL, '2017-06-30 19:46:26', '2017-06-30 19:47:26', 1),
+	(7, 'BUILDING', 'MINING_STATION', NULL, '2017-06-30 20:54:46', '2017-06-30 20:55:46', 1);
 /*!40000 ALTER TABLE `construction` ENABLE KEYS */;
 
 -- Dumping structure for tábla space.discovered
@@ -90,18 +96,18 @@ DROP TABLE IF EXISTS `discovered`;
 CREATE TABLE IF NOT EXISTS `discovered` (
   `disc_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `disc_date` datetime NOT NULL,
-  `user_guid` varchar(40) NOT NULL,
+  `user_uuid` varchar(40) NOT NULL,
   `ss_id` bigint(20) NOT NULL,
   PRIMARY KEY (`disc_id`),
-  KEY `FK_discovered_system_user` (`user_guid`),
+  KEY `FK_discovered_system_user` (`user_uuid`),
   KEY `FK_discovered_system_solar_system` (`ss_id`),
   CONSTRAINT `FK_discovered_system_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`),
-  CONSTRAINT `FK_discovered_system_user` FOREIGN KEY (`user_guid`) REFERENCES `user` (`user_guid`)
+  CONSTRAINT `FK_discovered_system_user` FOREIGN KEY (`user_uuid`) REFERENCES `user` (`uuid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.discovered: ~22 rows (approximately)
 /*!40000 ALTER TABLE `discovered` DISABLE KEYS */;
-INSERT INTO `discovered` (`disc_id`, `disc_date`, `user_guid`, `ss_id`) VALUES
+INSERT INTO `discovered` (`disc_id`, `disc_date`, `user_uuid`, `ss_id`) VALUES
 	(1, '2017-06-27 22:45:55', '3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 194032),
 	(2, '2017-06-27 22:45:55', '3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 194056),
 	(3, '2017-06-27 22:45:55', '3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 194067),
@@ -10285,10 +10291,10 @@ CREATE TABLE IF NOT EXISTS `resource` (
 -- Dumping data for table space.resource: ~4 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
 INSERT INTO `resource` (`rs_id`, `rs_name`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
-	(1, 'Titanium', 'TITANIUM', 0.5, 45406, '2017-06-29 23:51:42', 194067),
-	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 63575, '2017-06-29 23:51:42', 194067),
-	(3, 'gyuri', 'CREW', 0.3, 27271, '2017-06-29 23:51:42', 194067),
-	(4, 'Energy', 'ENERGY', 0.2, 18102, '2017-06-29 23:51:42', 194067);
+	(1, 'Titanium', 'TITANIUM', 0.5, 126018, '2017-07-01 20:59:22', 194067),
+	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 177268, '2017-07-01 20:59:22', 194067),
+	(3, 'gyuri', 'CREW', 0.3, 75869, '2017-07-01 20:59:22', 194067),
+	(4, 'Energy', 'ENERGY', 0.2, 49680, '2017-07-01 20:59:22', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 
 -- Dumping structure for tábla space.solar_system
@@ -10300,15 +10306,15 @@ CREATE TABLE IF NOT EXISTS `solar_system` (
   `ss_posy` int(11) NOT NULL,
   `ss_name` varchar(255) NOT NULL,
   `ss_planetcount` int(11) NOT NULL DEFAULT '0',
-  `user_guid` varchar(40) DEFAULT NULL,
+  `user_uuid` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`ss_id`),
-  KEY `FK_solar_system_user` (`user_guid`),
-  CONSTRAINT `FK_solar_system_user` FOREIGN KEY (`user_guid`) REFERENCES `user` (`user_guid`)
+  KEY `FK_solar_system_user` (`user_uuid`),
+  CONSTRAINT `FK_solar_system_user` FOREIGN KEY (`user_uuid`) REFERENCES `user` (`uuid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=197374 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.solar_system: ~0 rows (approximately)
+-- Dumping data for table space.solar_system: ~5 rows (approximately)
 /*!40000 ALTER TABLE `solar_system` DISABLE KEYS */;
-INSERT INTO `solar_system` (`ss_id`, `ss_type`, `ss_posx`, `ss_posy`, `ss_name`, `ss_planetcount`, `user_guid`) VALUES
+INSERT INTO `solar_system` (`ss_id`, `ss_type`, `ss_posx`, `ss_posy`, `ss_name`, `ss_planetcount`, `user_uuid`) VALUES
 	(192870, 'YELLOW_DWARF', 10933, 5702, 'YD-192870', 8, NULL),
 	(192871, 'YELLOW_DWARF', 10690, 5342, 'YD-192871', 5, NULL),
 	(192872, 'YELLOW_DWARF', 10849, 5382, 'YD-192872', 0, NULL),
@@ -14832,7 +14838,7 @@ CREATE TABLE IF NOT EXISTS `unit` (
   CONSTRAINT `FK_unit_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.unit: ~0 rows (approximately)
+-- Dumping data for table space.unit: ~7 rows (approximately)
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
 INSERT INTO `unit` (`unit_id`, `unit_type`, `unit_attack`, `unit_defense`, `unit_speed`, `unit_rank`, `unit_count`, `pl_id`, `fl_id`) VALUES
 	(2, 'SMALL_SHIP', 1, 1, 1, 1, 6, 1, 0),
@@ -14847,15 +14853,15 @@ INSERT INTO `unit` (`unit_id`, `unit_type`, `unit_attack`, `unit_defense`, `unit
 -- Dumping structure for tábla space.user
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_guid` varchar(40) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
-  `user_email` varchar(255) NOT NULL,
-  PRIMARY KEY (`user_guid`)
+  `uuid` varchar(40) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.user: ~0 rows (approximately)
+-- Dumping data for table space.user: ~3 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`user_guid`, `user_name`, `user_email`) VALUES
+INSERT INTO `user` (`uuid`, `name`, `email`) VALUES
 	('3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 'kgyj', 'kgyj@misoft.hu'),
 	('5bcc54a6-fb0b-474f-bd78-44b7860d2eda', 'mogyi', 'mogyi@misoft.hu'),
 	('6b3f019d-1ae7-4abb-b9e7-4397d9d83251', 'elfarkasz', 'farok@misoft.hu');
