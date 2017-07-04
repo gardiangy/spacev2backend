@@ -1,7 +1,6 @@
 package hu.voga.space.dto;
 
 import hu.voga.space.enums.PlanetType;
-import hu.voga.space.enums.SolarSystemType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +15,7 @@ public class PlanetDto {
     private Integer size;
     private Integer slots;
     private List<BuildingDto> buildings;
+    private List<ConstructionDto> constructions;
 
     public PlanetDto() {
     }

@@ -34,4 +34,7 @@ public class Planet {
 
   @OneToMany(mappedBy = "planet", fetch = FetchType.LAZY)
   private List<Building> buildings;
+
+  @OneToMany(mappedBy = "planet", fetch = FetchType.LAZY)
+  private List<Construction> constructions;
 }

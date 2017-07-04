@@ -1,5 +1,6 @@
 package hu.voga.space.dto;
 
+import hu.voga.space.enums.BuildingType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import lombok.Setter;
 public class BuildingDto {
 
     private Long id;
-    private String planetType;
+    private BuildingType buildingType;
 
     public BuildingDto() {
     }
