@@ -1,13 +1,13 @@
 package hu.voga.space.service;
 
+import com.google.common.collect.ImmutableMap;
 import hu.voga.space.entity.*;
-import hu.voga.space.enums.BuildingType;
-import hu.voga.space.enums.ConstructionType;
-import hu.voga.space.enums.ErrorCode;
-import hu.voga.space.enums.ResourceType;
+import hu.voga.space.enums.*;
 import hu.voga.space.exception.SpaceException;
+import hu.voga.space.handler.NotificationHandler;
 import hu.voga.space.repository.ConstructionRepository;
 import hu.voga.space.util.ConstructionScheduler;
+import hu.voga.space.util.Notification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -40,6 +41,9 @@ public class ConstructionService {
   private ConstructionScheduler constructionScheduler;
 
   @Autowired
+  private NotificationHandler notificationHandler;
+
+  @Autowired
   private ResourceService resourceService;
 
   public Construction constructBuilding(BuildingType buildingType, Long planetId) throws SpaceException {
@@ -61,6 +65,7 @@ public class ConstructionService {
   @Transactional
   public void build(Construction construction){
     long before = new Date().getTime();
+    Long constructionId = construction.getCtId();
     Building building = new Building();
     building.setBldType(construction.getCtBuildingType());
     building.setPlanet(construction.getPlanet());
@@ -68,6 +73,12 @@ public class ConstructionService {
     constructionRepository.delete(construction);
     long elapsed = new Date().getTime() - before;
     logger.info("Construction finished in " + elapsed + " ms");
+
+    Notification notification = Notification.builder()
+            .notificationType(NotificationType.CONSTRUCTION_COMPLETE)
+            .data(ImmutableMap.of("constructionId", constructionId.toString()))
+            .build();
+    notificationHandler.sendNotification(notification);
   }
 
 
