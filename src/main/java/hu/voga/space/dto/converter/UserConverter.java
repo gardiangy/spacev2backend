@@ -9,7 +9,9 @@ public  class UserConverter extends ModelDtoConverter<User, UserDto> {
 
     @Override
     public UserDto convertToDto(User entity) {
-        return modelMapper.map(entity, UserDto.class);
+        UserDto userDto = modelMapper.map(entity, UserDto.class);
+        userDto.setRank( entity.getRank().getName());
+        return userDto;
     }
 
     @Override

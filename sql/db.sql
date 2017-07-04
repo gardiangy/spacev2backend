@@ -14854,15 +14854,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `uuid` varchar(40) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `rank` varchar(255) NOT NULL,
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.user: ~3 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`uuid`, `name`, `email`) VALUES
-	('3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 'kgyj', 'kgyj@misoft.hu'),
-	('5bcc54a6-fb0b-474f-bd78-44b7860d2eda', 'mogyi', 'mogyi@misoft.hu'),
-	('6b3f019d-1ae7-4abb-b9e7-4397d9d83251', 'elfarkasz', 'farok@misoft.hu');
+INSERT INTO `user` (`uuid`, `name`, `email`, `rank`) VALUES
+	('3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 'kgyj', 'kgyj@misoft.hu', 'SEAMAN_RECRUIT'),
+	('5bcc54a6-fb0b-474f-bd78-44b7860d2eda', 'mogyi', 'mogyi@misoft.hu', 'SEAMAN'),
+	('6b3f019d-1ae7-4abb-b9e7-4397d9d83251', 'elfarkasz', 'farok@misoft.hu', 'FLEET_ADMIRAL');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
