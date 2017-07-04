@@ -30,8 +30,6 @@ CREATE TABLE IF NOT EXISTS `building` (
 
 -- Dumping data for table space.building: ~0 rows (approximately)
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
-INSERT INTO `building` (`bld_id`, `bld_type`, `pl_id`) VALUES
-	(1, 'ROCK', 1);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
 
 -- Dumping structure for tábla space.cargo
@@ -10291,10 +10289,10 @@ CREATE TABLE IF NOT EXISTS `resource` (
 -- Dumping data for table space.resource: ~4 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
 INSERT INTO `resource` (`rs_id`, `rs_name`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
-	(1, 'Titanium', 'TITANIUM', 0.5, 126018, '2017-07-01 20:59:22', 194067),
-	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 177268, '2017-07-01 20:59:22', 194067),
-	(3, 'gyuri', 'CREW', 0.3, 75869, '2017-07-01 20:59:22', 194067),
-	(4, 'Energy', 'ENERGY', 0.2, 49680, '2017-07-01 20:59:22', 194067);
+	(1, 'Titanium', 'TITANIUM', 0.5, 248044, '2017-07-04 16:47:19', 194067),
+	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 348103, '2017-07-04 16:47:19', 194067),
+	(3, 'gyuri', 'CREW', 0.3, 149077, '2017-07-04 16:47:19', 194067),
+	(4, 'Energy', 'ENERGY', 0.2, 98482, '2017-07-04 16:47:19', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 
 -- Dumping structure for tábla space.solar_system
@@ -10312,7 +10310,7 @@ CREATE TABLE IF NOT EXISTS `solar_system` (
   CONSTRAINT `FK_solar_system_user` FOREIGN KEY (`user_uuid`) REFERENCES `user` (`uuid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=197374 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.solar_system: ~5 rows (approximately)
+-- Dumping data for table space.solar_system: ~4 504 rows (approximately)
 /*!40000 ALTER TABLE `solar_system` DISABLE KEYS */;
 INSERT INTO `solar_system` (`ss_id`, `ss_type`, `ss_posx`, `ss_posy`, `ss_name`, `ss_planetcount`, `user_uuid`) VALUES
 	(192870, 'YELLOW_DWARF', 10933, 5702, 'YD-192870', 8, NULL),
