@@ -28,17 +28,17 @@ public class ConstructionController {
     public Response saveConstruction(@PathVariable("planetId") Long planetId,
                                      @RequestBody ConstructionDto constructionDto) throws SpaceException {
         Construction construction = constructionService.constructBuilding(constructionDto.getBuildingType(), planetId);
-        return Response.createOKResponse( constructionConverter.convertToDto(construction) );
+        return Response.createOKResponse(constructionConverter.convertToDto(construction));
     }
 
     @RequestMapping(value = "planet/{planetId}", method = RequestMethod.GET)
     @ResponseBody
     public Response getConstructionByPlanet(@PathVariable("planetId") Long planetId) throws SpaceException {
         List<Construction> constructions = constructionService.getAllByPlanet(planetId);
-        return Response.createOKResponse( constructions
-        .stream()
-        .map(constructionConverter::convertToDto)
-        .collect(Collectors.toList()));
+        return Response.createOKResponse(constructions
+                .stream()
+                .map(constructionConverter::convertToDto)
+                .collect(Collectors.toList()));
     }
 
 }

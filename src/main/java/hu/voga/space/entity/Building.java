@@ -1,10 +1,10 @@
 package hu.voga.space.entity;
 
+import hu.voga.space.enums.BuildingType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by lofut on 2017. 06. 29..
@@ -20,8 +20,9 @@ public class Building {
     @Column(name = "bld_id")
     private Long bldId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "bld_type")
-    private String bldType;
+    private BuildingType bldType;
 
     @ManyToOne
     @JoinColumn(name = "pl_id")

@@ -1,19 +1,18 @@
 package hu.voga.space.service;
 
-import hu.voga.space.entity.Construction;
-import hu.voga.space.entity.Planet;
-import hu.voga.space.entity.Resource;
-import hu.voga.space.entity.SolarSystem;
+import hu.voga.space.entity.*;
 import hu.voga.space.enums.BuildingType;
 import hu.voga.space.enums.ConstructionType;
 import hu.voga.space.enums.ErrorCode;
 import hu.voga.space.enums.ResourceType;
 import hu.voga.space.exception.SpaceException;
 import hu.voga.space.repository.ConstructionRepository;
+import hu.voga.space.util.ConstructionScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -35,6 +34,12 @@ public class ConstructionService {
   private PlanetService planetService;
 
   @Autowired
+  private BuildingService buildingService;
+
+  @Autowired
+  private ConstructionScheduler constructionScheduler;
+
+  @Autowired
   private ResourceService resourceService;
 
   public Construction constructBuilding(BuildingType buildingType, Long planetId) throws SpaceException {
@@ -46,10 +51,26 @@ public class ConstructionService {
     construction.setCtBuildingType(buildingType);
     construction.setCtStart(new Date());
     LocalDateTime start = LocalDateTime.now();
-    construction.setCtEnd(Date.from(start.plusMinutes(1).atZone(ZoneId.systemDefault()).toInstant()));
+    construction.setCtEnd(Date.from(start.plusSeconds(120).atZone(ZoneId.systemDefault()).toInstant()));
     construction.setPlanet(planet);
-    return constructionRepository.save(construction);
+    final Construction savedConstruction = constructionRepository.save(construction);
+    constructionScheduler.scheduleConstruction(savedConstruction);
+    return savedConstruction;
   }
+
+  @Transactional
+  public void build(Construction construction){
+    long before = new Date().getTime();
+    Building building = new Building();
+    building.setBldType(construction.getCtBuildingType());
+    building.setPlanet(construction.getPlanet());
+    buildingService.save(building);
+    constructionRepository.delete(construction);
+    long elapsed = new Date().getTime() - before;
+    logger.info("Construction finished in " + elapsed + " ms");
+  }
+
+
 
   public List<Construction> getAllByPlanet(Long planetId) {
     Planet planet = planetService.getOne(planetId);
