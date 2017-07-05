@@ -28,6 +28,6 @@ public class ConstructionScheduler {
         Runnable constructionRunnable = () -> constructionService.build(construction);
         final LocalDateTime constructionEndDate = LocalDateTime.ofInstant(construction.getCtEnd().toInstant(), ZoneId.systemDefault());
         scheduler.schedule(constructionRunnable,
-                Date.from(constructionEndDate.plusSeconds(1).atZone(ZoneId.systemDefault()).toInstant()));
+                Date.from(constructionEndDate.plusNanos(100000).atZone(ZoneId.systemDefault()).toInstant()));
     }
 }

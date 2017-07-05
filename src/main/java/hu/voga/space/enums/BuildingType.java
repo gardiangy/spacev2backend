@@ -1,5 +1,8 @@
 package hu.voga.space.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum BuildingType {
     SHIPYARD (360000L, "Shipyard", 120, 200, 30, "This is a Shipyard"),
     MINING_STATION (200000L, "Mining Station", 100, 150, 20, "This is a Mining Station"),

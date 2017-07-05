@@ -55,7 +55,7 @@ public class ConstructionService {
     construction.setCtBuildingType(buildingType);
     construction.setCtStart(new Date());
     LocalDateTime start = LocalDateTime.now();
-    construction.setCtEnd(Date.from(start.plusSeconds(120).atZone(ZoneId.systemDefault()).toInstant()));
+    construction.setCtEnd(Date.from(start.plusSeconds(20).atZone(ZoneId.systemDefault()).toInstant()));
     construction.setPlanet(planet);
     final Construction savedConstruction = constructionRepository.save(construction);
     constructionScheduler.scheduleConstruction(savedConstruction);
