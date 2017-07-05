@@ -1,5 +1,8 @@
 package hu.voga.space.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RankType {
     
     SEAMAN_RECRUIT("Seaman Recruit","SR", "E-1"),

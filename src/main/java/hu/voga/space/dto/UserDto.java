@@ -1,5 +1,6 @@
 package hu.voga.space.dto;
 
+import hu.voga.space.enums.RankType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ public class UserDto {
     private String uuid;
     private String name;
     private String email;
-    private String rank;
+    private RankType rank;
 
     public UserDto() {
     }
