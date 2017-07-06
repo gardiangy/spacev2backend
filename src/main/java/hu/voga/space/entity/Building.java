@@ -24,6 +24,9 @@ public class Building {
     @Column(name = "bld_type")
     private BuildingType bldType;
 
+    @Column(name = "bld_slot")
+    private Integer bldSlot;
+
     @ManyToOne
     @JoinColumn(name = "pl_id")
     private Planet planet;

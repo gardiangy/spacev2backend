@@ -49,24 +49,25 @@ public class ConstructionService {
   private ResourceService resourceService;
 
   @Transactional
-  public Construction constructBuilding(BuildingType buildingType, Long planetId) throws SpaceException {
+  public Construction constructBuilding(BuildingType buildingType, Integer buildingSlot, Long planetId) throws SpaceException {
     Planet planet = planetService.getOne(planetId);
-    return createConstruction(ConstructionType.BUILDING, buildingType, planet);
+    return createConstruction(ConstructionType.BUILDING, buildingSlot, buildingType, planet);
   }
 
   @Transactional
   public Construction constructShip(ShipType shipType, Long planetId) throws SpaceException {
     Planet planet = planetService.getOne(planetId);
-    return createConstruction(ConstructionType.SHIP, shipType, planet);
+    return createConstruction(ConstructionType.SHIP, null, shipType, planet);
   }
 
-  private Construction createConstruction(ConstructionType constructionType, ConstructionEnum constructionEnum, Planet planet) throws SpaceException {
+  private Construction createConstruction(ConstructionType constructionType, Integer buildingSlot, ConstructionEnum constructionEnum, Planet planet) throws SpaceException {
     resourceService.checkAndDeductResources(constructionEnum, planet.getSolarSystem());
 
     Construction construction = new Construction();
     construction.setCtType(constructionType);
     if(constructionEnum instanceof BuildingType){
       construction.setCtBuildingType((BuildingType) constructionEnum);
+      construction.setCtBuildingSlot(buildingSlot);
     }
     if(constructionEnum instanceof ShipType){
       construction.setCtShipType((ShipType) constructionEnum);
@@ -89,6 +90,7 @@ public class ConstructionService {
         Building building = new Building();
         building.setBldType(construction.getCtBuildingType());
         building.setPlanet(construction.getPlanet());
+        building.setBldSlot(construction.getCtBuildingSlot());
         buildingService.save(building);
         break;
       case SHIP:

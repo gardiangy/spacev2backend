@@ -21,16 +21,22 @@ DROP TABLE IF EXISTS `building`;
 CREATE TABLE IF NOT EXISTS `building` (
   `bld_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `bld_type` varchar(255) NOT NULL,
+  `bld_slot` int(20) DEFAULT NULL,
   `pl_id` bigint(20) NOT NULL,
   PRIMARY KEY (`bld_id`),
   KEY `FK_building_planet` (`pl_id`),
   CONSTRAINT `FK_building_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.building: ~1 rows (approximately)
+-- Dumping data for table space.building: ~6 rows (approximately)
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
-INSERT INTO `building` (`bld_id`, `bld_type`, `pl_id`) VALUES
-	(37, 'SHIPYARD', 1);
+INSERT INTO `building` (`bld_id`, `bld_type`, `bld_slot`, `pl_id`) VALUES
+	(37, 'SHIPYARD', NULL, 1),
+	(38, 'SHIPYARD', NULL, 1),
+	(39, 'SHIPYARD', NULL, 1),
+	(40, 'SHIPYARD', NULL, 1),
+	(41, 'SHIPYARD', 1, 1),
+	(42, 'SHIPYARD', 2, 1);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
 
 
@@ -71,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `construction` (
   `ct_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `ct_type` varchar(255) NOT NULL,
   `ct_building_type` varchar(255) DEFAULT NULL,
+  `ct_building_slot` int(20) DEFAULT NULL,
   `ct_ship_type` varchar(255) DEFAULT NULL,
   `ct_start` datetime NOT NULL,
   `ct_end` datetime NOT NULL,
@@ -78,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `construction` (
   PRIMARY KEY (`ct_id`),
   KEY `FK_construction_planet_slot` (`pl_id`),
   CONSTRAINT `FK_construction_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.construction: ~1 rows (approximately)
 /*!40000 ALTER TABLE `construction` DISABLE KEYS */;
@@ -10290,10 +10297,10 @@ CREATE TABLE IF NOT EXISTS `resource` (
 -- Dumping data for table space.resource: ~4 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
 INSERT INTO `resource` (`rs_id`, `rs_name`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
-	(1, 'Titanium', 'TITANIUM', 0.5, 330573, '2017-07-06 14:44:21', 194067),
-	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 463895, '2017-07-06 14:44:21', 194067),
-	(3, 'gyuri', 'CREW', 0.3, 198580, '2017-07-06 14:44:21', 194067),
-	(4, 'Energy', 'ENERGY', 0.2, 131334, '2017-07-06 14:44:21', 194067);
+	(1, 'Titanium', 'TITANIUM', 0.5, 332625, '2017-07-06 16:16:14', 194067),
+	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 467748, '2017-07-06 16:16:14', 194067),
+	(3, 'gyuri', 'CREW', 0.3, 199908, '2017-07-06 16:16:14', 194067),
+	(4, 'Energy', 'ENERGY', 0.2, 131392, '2017-07-06 16:16:14', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 
 
@@ -10312,12 +10319,13 @@ CREATE TABLE IF NOT EXISTS `ship` (
   PRIMARY KEY (`ship_id`),
   KEY `FK_unit_planet` (`ss_id`),
   CONSTRAINT `FK_unit_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.ship: ~0 rows (approximately)
+-- Dumping data for table space.ship: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ship` DISABLE KEYS */;
 INSERT INTO `ship` (`ship_id`, `ship_type`, `ship_attack`, `ship_defense`, `ship_speed`, `ship_rank`, `ship_count`, `ss_id`, `fl_id`) VALUES
-	(9, 'SMALL_SHIP', 1, 1, 1, 1, 1, 194067, NULL);
+	(9, 'SMALL_SHIP', 1, 1, 1, 1, 2, 194067, NULL),
+	(10, 'MEDIUM_SHIP', 2, 2, 2, 1, 2, 194067, NULL);
 /*!40000 ALTER TABLE `ship` ENABLE KEYS */;
 
 

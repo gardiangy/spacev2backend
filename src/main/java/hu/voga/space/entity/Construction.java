@@ -31,6 +31,9 @@ public class Construction {
     @Column(name = "ct_building_type")
     private BuildingType ctBuildingType;
 
+    @Column(name = "ct_building_slot")
+    private Integer ctBuildingSlot;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ct_ship_type")
     private ShipType ctShipType;

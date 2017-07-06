@@ -15,6 +15,7 @@ public class ConstructionDto {
     private Long id;
     private ConstructionType constructionType;
     private BuildingType buildingType;
+    private Integer slot;
     private ShipType shipType;
     private Date start;
     private Date end;

@@ -10,6 +10,7 @@ public class BuildingDto {
 
     private Long id;
     private BuildingType buildingType;
+    private Integer slot;
 
     public BuildingDto() {
     }

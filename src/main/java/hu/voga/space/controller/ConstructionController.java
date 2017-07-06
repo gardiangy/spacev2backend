@@ -30,7 +30,7 @@ public class ConstructionController {
         Construction construction = null;
         switch (constructionDto.getConstructionType()){
             case BUILDING:
-                construction = constructionService.constructBuilding(constructionDto.getBuildingType(), planetId);
+                construction = constructionService.constructBuilding(constructionDto.getBuildingType(), constructionDto.getSlot(), planetId);
                 break;
             case SHIP:
                 construction = constructionService.constructShip(constructionDto.getShipType(), planetId);
