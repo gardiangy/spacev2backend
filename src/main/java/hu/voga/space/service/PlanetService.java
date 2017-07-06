@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlanetService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SolarSystemService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PlanetService.class);
 
     @Autowired
     private PlanetRepository planetRepository;

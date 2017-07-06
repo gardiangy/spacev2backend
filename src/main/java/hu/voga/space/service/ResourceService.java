@@ -4,6 +4,7 @@ import hu.voga.space.entity.Resource;
 import hu.voga.space.entity.SolarSystem;
 import hu.voga.space.enums.ConstructionEnum;
 import hu.voga.space.enums.ErrorCode;
+import hu.voga.space.enums.ModifierCalcType;
 import hu.voga.space.enums.ResourceType;
 import hu.voga.space.exception.SpaceException;
 import hu.voga.space.repository.ResourceRepository;
@@ -34,6 +35,10 @@ public class ResourceService {
         return updateResourcesForSystem(solarSystem);
     }
 
+    public Resource findResourcesBySystemAndType(ResourceType resourceType, SolarSystem solarSystem) {
+        return resourceRepository.findBySolarSystemAndRsType(solarSystem, resourceType);
+    }
+
     public void checkAndDeductResources(ConstructionEnum constructionType, SolarSystem solarSystem) throws SpaceException {
         List<Resource> resources = findResourcesBySystem(solarSystem);
         Resource titaniumRes = resources.stream().filter(resource -> resource.getRsType().equals(ResourceType.TITANIUM)).findFirst().get();
@@ -56,6 +61,17 @@ public class ResourceService {
         crewRes.setRsAmount(crewRes.getRsAmount() - constructionType.getCrewCost());
     }
 
+    public Resource updateRate(Resource resource, ModifierCalcType modifierCalcType, Double value){
+        switch (modifierCalcType){
+            case NOMINAL:
+                resource.setRsRate(resource.getRsRate() + value);
+                break;
+            case PERCENTAGE:
+                resource.setRsRate(resource.getRsRate() + resource.getRsRate() * (value / 100));
+                break;
+        }
+        return resourceRepository.save(resource);
+    }
 
     public List<Resource> updateResourcesForSystem(SolarSystem solarSystem) {
         LocalDateTime now = LocalDateTime.now();

@@ -1,5 +1,6 @@
 package hu.voga.space.service;
 
+import hu.voga.space.entity.Construction;
 import hu.voga.space.entity.Ship;
 import hu.voga.space.entity.SolarSystem;
 import hu.voga.space.enums.ShipType;
@@ -16,12 +17,14 @@ import java.util.Optional;
 @Service
 public class ShipService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SolarSystemService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShipService.class);
 
     @Autowired
     private ShipRepository shipRepository;
 
-    public Ship createShip(ShipType shipType, SolarSystem solarSystem) {
+    public Ship save(Construction construction) {
+        final ShipType shipType = construction.getCtShipType();
+        final SolarSystem solarSystem = construction.getPlanet().getSolarSystem();
         Ship ship;
 
         //ha már létezik ilyen típusú hajó a rendszerben növeljük az értéket 1 -el
@@ -31,7 +34,7 @@ public class ShipService {
             ship.setShipCount(ship.getShipCount() + 1);
         } else {
             ship = new Ship();
-            ship.setShipCount(1l);
+            ship.setShipCount(1L);
             ship.setShipRank(1);
             ship.setShipType(shipType);
             ship.setSolarSystem(solarSystem);

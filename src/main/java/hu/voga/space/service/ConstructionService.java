@@ -87,14 +87,10 @@ public class ConstructionService {
     Long constructionId = construction.getCtId();
     switch (construction.getCtType()){
       case  BUILDING:
-        Building building = new Building();
-        building.setBldType(construction.getCtBuildingType());
-        building.setPlanet(construction.getPlanet());
-        building.setBldSlot(construction.getCtBuildingSlot());
-        buildingService.save(building);
+        buildingService.save(construction);
         break;
       case SHIP:
-        shipService.createShip(construction.getCtShipType(), construction.getPlanet().getSolarSystem());
+        shipService.save(construction);
         break;
     }
 

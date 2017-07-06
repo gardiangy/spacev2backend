@@ -1,12 +1,12 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.7.17-log - MySQL Community Server (GPL)
+-- Server version:               5.7.10-log - MySQL Community Server (GPL)
 -- Server OS:                    Win64
--- HeidiSQL Verzió:              8.3.0.4714
+-- HeidiSQL Verzió:              9.1.0.4867
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `building` (
   PRIMARY KEY (`bld_id`),
   KEY `FK_building_planet` (`pl_id`),
   CONSTRAINT `FK_building_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.building: ~6 rows (approximately)
+-- Dumping data for table space.building: ~8 rows (approximately)
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
 INSERT INTO `building` (`bld_id`, `bld_type`, `bld_slot`, `pl_id`) VALUES
 	(37, 'SHIPYARD', NULL, 1),
@@ -36,7 +36,11 @@ INSERT INTO `building` (`bld_id`, `bld_type`, `bld_slot`, `pl_id`) VALUES
 	(39, 'SHIPYARD', NULL, 1),
 	(40, 'SHIPYARD', NULL, 1),
 	(41, 'SHIPYARD', 1, 1),
-	(42, 'SHIPYARD', 2, 1);
+	(42, 'SHIPYARD', 2, 1),
+	(43, 'SHIPYARD', NULL, 2),
+	(44, 'SHIPYARD', 1, 2),
+	(45, 'MINING_STATION', 1, 2),
+	(46, 'MINING_STATION', 2, 2);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
 
 
@@ -85,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `construction` (
   PRIMARY KEY (`ct_id`),
   KEY `FK_construction_planet_slot` (`pl_id`),
   CONSTRAINT `FK_construction_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.construction: ~1 rows (approximately)
 /*!40000 ALTER TABLE `construction` DISABLE KEYS */;
@@ -10185,6 +10189,25 @@ INSERT INTO `grid` (`grid_id`, `grid_x`, `grid_y`, `ss_id`) VALUES
 /*!40000 ALTER TABLE `grid` ENABLE KEYS */;
 
 
+-- Dumping structure for tábla space.modifier
+DROP TABLE IF EXISTS `modifier`;
+CREATE TABLE IF NOT EXISTS `modifier` (
+  `mod_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mod_type` varchar(255) NOT NULL,
+  `mod_calc_type` varchar(255) NOT NULL,
+  `mod_resource_type` varchar(255) NOT NULL,
+  `mod_value` double NOT NULL,
+  `ss_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`mod_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table space.modifier: ~0 rows (approximately)
+/*!40000 ALTER TABLE `modifier` DISABLE KEYS */;
+INSERT INTO `modifier` (`mod_id`, `mod_type`, `mod_calc_type`, `mod_resource_type`, `mod_value`, `ss_id`) VALUES
+	(2, 'RESOURCE_RATE', 'PERCENTAGE', 'TITANIUM', 1, 194067);
+/*!40000 ALTER TABLE `modifier` ENABLE KEYS */;
+
+
 -- Dumping structure for tábla space.planet
 DROP TABLE IF EXISTS `planet`;
 CREATE TABLE IF NOT EXISTS `planet` (
@@ -10297,10 +10320,10 @@ CREATE TABLE IF NOT EXISTS `resource` (
 -- Dumping data for table space.resource: ~4 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
 INSERT INTO `resource` (`rs_id`, `rs_name`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
-	(1, 'Titanium', 'TITANIUM', 0.5, 332625, '2017-07-06 16:16:14', 194067),
-	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 467748, '2017-07-06 16:16:14', 194067),
-	(3, 'gyuri', 'CREW', 0.3, 199908, '2017-07-06 16:16:14', 194067),
-	(4, 'Energy', 'ENERGY', 0.2, 131392, '2017-07-06 16:16:14', 194067);
+	(1, 'Titanium', 'TITANIUM', 1.01, 345872, '2017-07-06 23:49:44', 194067),
+	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 486791, '2017-07-06 23:49:44', 194067),
+	(3, 'gyuri', 'CREW', 0.3, 207967, '2017-07-06 23:49:44', 194067),
+	(4, 'Energy', 'ENERGY', 0.2, 136131, '2017-07-06 23:49:44', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 
 
