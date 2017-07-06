@@ -1,8 +1,12 @@
 package hu.voga.space.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@AllArgsConstructor
+@Getter
 public enum RankType {
     
     SEAMAN_RECRUIT("Seaman Recruit","SR", "E-1"),
@@ -32,37 +36,8 @@ public enum RankType {
     ADMIRAL_CHIEF_OF_NAVAL("Admiral Chief of Naval", "ADM", "O-10"),
     FLEET_ADMIRAL("Fleet Admiral", "FADM", "O-11 Special");
 
-    RankType(String name, String abbrv, String grade) {
-        this.name = name;
-        this.abbrv = abbrv;
-        this.grade = grade;
-    }
-
     private String name;
     private String abbrv;
     private String grade;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAbbrv() {
-        return abbrv;
-    }
-
-    public void setAbbrv(String abbrv) {
-        this.abbrv = abbrv;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
 }
