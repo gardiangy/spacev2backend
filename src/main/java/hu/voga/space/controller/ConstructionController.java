@@ -27,7 +27,15 @@ public class ConstructionController {
     @ResponseBody
     public Response saveConstruction(@PathVariable("planetId") Long planetId,
                                      @RequestBody ConstructionDto constructionDto) throws SpaceException {
-        Construction construction = constructionService.constructBuilding(constructionDto.getBuildingType(), planetId);
+        Construction construction = null;
+        switch (constructionDto.getConstructionType()){
+            case BUILDING:
+                construction = constructionService.constructBuilding(constructionDto.getBuildingType(), planetId);
+                break;
+            case SHIP:
+                construction = constructionService.constructShip(constructionDto.getShipType(), planetId);
+                break;
+        }
         return Response.createOKResponse(constructionConverter.convertToDto(construction));
     }
 

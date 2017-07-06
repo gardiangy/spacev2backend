@@ -2,7 +2,7 @@ package hu.voga.space.entity;
 
 import hu.voga.space.enums.BuildingType;
 import hu.voga.space.enums.ConstructionType;
-import hu.voga.space.enums.UnitType;
+import hu.voga.space.enums.ShipType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,8 +32,8 @@ public class Construction {
     private BuildingType ctBuildingType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ct_unit_type")
-    private UnitType ctUnitType;
+    @Column(name = "ct_ship_type")
+    private ShipType ctShipType;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ct_start")

@@ -3,9 +3,11 @@ package hu.voga.space.controller;
 import hu.voga.space.controller.response.Response;
 import hu.voga.space.dto.converter.PlanetConverter;
 import hu.voga.space.dto.converter.ResourceConverter;
+import hu.voga.space.dto.converter.ShipConverter;
 import hu.voga.space.dto.converter.SolarSystemConverter;
 import hu.voga.space.entity.SolarSystem;
 import hu.voga.space.service.ResourceService;
+import hu.voga.space.service.ShipService;
 import hu.voga.space.service.SolarSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +29,16 @@ public class SolarSystemController {
     private ResourceService resourceService;
 
     @Autowired
+    private ShipService shipService;
+
+    @Autowired
     private SolarSystemConverter solarSystemConverter;
 
     @Autowired
     private PlanetConverter planetConverter;
+
+    @Autowired
+    private ShipConverter shipConverter;
 
     @Autowired
     private ResourceConverter resourceConverter;
@@ -61,6 +69,16 @@ public class SolarSystemController {
         return Response.createOKResponse(resourceService.findResourcesBySystem(solarSystem)
                 .stream()
                 .map(resourceConverter::convertToDto)
+                .collect(Collectors.toList()));
+    }
+
+    @RequestMapping("/{ssId}/ship")
+    @ResponseBody
+    public Response getShipsForSolarSystem(@PathVariable("ssId") Long ssId) {
+        final SolarSystem solarSystem = solarSystemService.getOne(ssId);
+        return Response.createOKResponse(shipService.findShipBySystem(solarSystem)
+                .stream()
+                .map(shipConverter::convertToDto)
                 .collect(Collectors.toList()));
     }
 }

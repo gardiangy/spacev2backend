@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -38,6 +37,9 @@ public class ConstructionService {
   private BuildingService buildingService;
 
   @Autowired
+  private ShipService shipService;
+
+  @Autowired
   private ConstructionScheduler constructionScheduler;
 
   @Autowired
@@ -46,13 +48,29 @@ public class ConstructionService {
   @Autowired
   private ResourceService resourceService;
 
+  @Transactional
   public Construction constructBuilding(BuildingType buildingType, Long planetId) throws SpaceException {
     Planet planet = planetService.getOne(planetId);
-    resourceService.checkAndDeductResources(buildingType, planet.getSolarSystem());
+    return createConstruction(ConstructionType.BUILDING, buildingType, planet);
+  }
+
+  @Transactional
+  public Construction constructShip(ShipType shipType, Long planetId) throws SpaceException {
+    Planet planet = planetService.getOne(planetId);
+    return createConstruction(ConstructionType.SHIP, shipType, planet);
+  }
+
+  private Construction createConstruction(ConstructionType constructionType, ConstructionEnum constructionEnum, Planet planet) throws SpaceException {
+    resourceService.checkAndDeductResources(constructionEnum, planet.getSolarSystem());
 
     Construction construction = new Construction();
-    construction.setCtType(ConstructionType.BUILDING);
-    construction.setCtBuildingType(buildingType);
+    construction.setCtType(constructionType);
+    if(constructionEnum instanceof BuildingType){
+      construction.setCtBuildingType((BuildingType) constructionEnum);
+    }
+    if(constructionEnum instanceof ShipType){
+      construction.setCtShipType((ShipType) constructionEnum);
+    }
     construction.setCtStart(new Date());
     LocalDateTime start = LocalDateTime.now();
     construction.setCtEnd(Date.from(start.plusSeconds(20).atZone(ZoneId.systemDefault()).toInstant()));
@@ -66,10 +84,18 @@ public class ConstructionService {
   public void build(Construction construction){
     long before = new Date().getTime();
     Long constructionId = construction.getCtId();
-    Building building = new Building();
-    building.setBldType(construction.getCtBuildingType());
-    building.setPlanet(construction.getPlanet());
-    buildingService.save(building);
+    switch (construction.getCtType()){
+      case  BUILDING:
+        Building building = new Building();
+        building.setBldType(construction.getCtBuildingType());
+        building.setPlanet(construction.getPlanet());
+        buildingService.save(building);
+        break;
+      case SHIP:
+        shipService.createShip(construction.getCtShipType(), construction.getPlanet().getSolarSystem());
+        break;
+    }
+
     constructionRepository.delete(construction);
     long elapsed = new Date().getTime() - before;
     logger.info("Construction finished in " + elapsed + " ms");
