@@ -9,7 +9,7 @@ import lombok.Setter;
 public class BuildingDto {
 
     private Long id;
-    private BuildingType buildingType;
+    private BuildingType type;
     private Integer slot;
 
     public BuildingDto() {
