@@ -2,5 +2,5 @@ package hu.voga.space.enums;
 
 public enum BuildingBaseType {
 
-    PRODUCER,MILITARY,RESEARCH,DEFENSE;
+    PRODUCER,MILITARY,RESEARCH,DEFENSE,UTILITY;
 }

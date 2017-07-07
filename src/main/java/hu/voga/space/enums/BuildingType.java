@@ -13,18 +13,19 @@ import java.util.List;
 @Getter
 public enum BuildingType implements ConstructionEnum {
 
-    SHIPYARD (360000L, "Shipyard", 120, 200, 30, "This is a Shipyard", new ArrayList<>()),
-    MINING_STATION (200000L, "Mining Station", 100, 150, 20, "This is a Mining Station", Arrays.asList(ModifierRule.MINE_RULE)),
-    REFINERY (150000L, "Refinery", 150, 100, 20, "This is a Refinery", new ArrayList<>()),
-    COLONY (600000L, "Colony", 500, 400, 200, "This is a Colony", new ArrayList<>()),
-    POWER_PLANT (300000L, "Power Plant", 250, 100, 30, "This is a Power Plant", new ArrayList<>()),
-    ACADEMY (500000L, "Academy", 400, 200, 100, "This is a Academy", new ArrayList<>()),
-    RESEARCH_LAB (500000L, "Research Lab", 300, 400, 50, "This is a Research Lab", new ArrayList<>()),
-    RECRUITER (400000L, "Recruiter", 300, 300, 30, "This is a Recruiter", new ArrayList<>()),
-    TRADING_STATION (500000L, "Trading Station", 200, 200, 20, "This is a Trading Station", new ArrayList<>());
+    SHIPYARD (360000L, "Shipyard", BuildingBaseType.MILITARY, 120, 200, 30, "This is a Shipyard", new ArrayList<>()),
+    MINING_STATION (200000L, "Mining Station", BuildingBaseType.PRODUCER, 100, 150, 20, "This is a Mining Station", Arrays.asList(ModifierRule.MINE_RULE)),
+    REFINERY (150000L, "Refinery", BuildingBaseType.UTILITY, 150, 100, 20, "This is a Refinery", new ArrayList<>()),
+    COLONY (600000L, "Colony", BuildingBaseType.PRODUCER, 500, 400, 200, "This is a Colony", new ArrayList<>()),
+    POWER_PLANT (300000L, "Power Plant", BuildingBaseType.PRODUCER, 250, 100, 30, "This is a Power Plant", new ArrayList<>()),
+    ACADEMY (500000L, "Academy", BuildingBaseType.PRODUCER, 400, 200, 100, "This is a Academy", new ArrayList<>()),
+    RESEARCH_LAB (500000L, "Research Lab", BuildingBaseType.RESEARCH, 300, 400, 50, "This is a Research Lab", new ArrayList<>()),
+    RECRUITER (400000L, "Recruiter", BuildingBaseType.PRODUCER, 300, 300, 30, "This is a Recruiter", new ArrayList<>()),
+    TRADING_STATION (500000L, "Trading Station", BuildingBaseType.UTILITY, 200, 200, 20, "This is a Trading Station", new ArrayList<>());
 
     private Long buildingTime;
     private String name;
+    private BuildingBaseType baseType;
     private Integer titaniumCost;
     private Integer energyCost;
     private Integer crewCost;
