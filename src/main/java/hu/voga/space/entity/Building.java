@@ -1,5 +1,6 @@
 package hu.voga.space.entity;
 
+import hu.voga.space.enums.BuildingBaseType;
 import hu.voga.space.enums.BuildingType;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,10 @@ public class Building {
     @Enumerated(EnumType.STRING)
     @Column(name = "bld_type")
     private BuildingType bldType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "bld_base_type")
+    private BuildingBaseType bldBaseType;
 
     @Column(name = "bld_slot")
     private Integer bldSlot;

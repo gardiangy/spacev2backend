@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS `building`;
 CREATE TABLE IF NOT EXISTS `building` (
   `bld_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `bld_type` varchar(255) NOT NULL,
+  `bld_base_type` varchar(255) NOT NULL,
   `bld_slot` int(20) DEFAULT NULL,
   `pl_id` bigint(20) NOT NULL,
   PRIMARY KEY (`bld_id`),
@@ -30,17 +31,17 @@ CREATE TABLE IF NOT EXISTS `building` (
 
 -- Dumping data for table space.building: ~8 rows (approximately)
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
-INSERT INTO `building` (`bld_id`, `bld_type`, `bld_slot`, `pl_id`) VALUES
-	(37, 'SHIPYARD', NULL, 1),
-	(38, 'SHIPYARD', NULL, 1),
-	(39, 'SHIPYARD', NULL, 1),
-	(40, 'SHIPYARD', NULL, 1),
-	(41, 'SHIPYARD', 1, 1),
-	(42, 'SHIPYARD', 2, 1),
-	(43, 'SHIPYARD', NULL, 2),
-	(44, 'SHIPYARD', 1, 2),
-	(45, 'MINING_STATION', 1, 2),
-	(46, 'MINING_STATION', 2, 2);
+INSERT INTO `building` (`bld_id`, `bld_type`, `bld_base_type`, `bld_slot`, `pl_id`) VALUES
+	(37, 'SHIPYARD', 'MILITARY', NULL, 1),
+	(38, 'SHIPYARD', 'MILITARY', NULL, 1),
+	(39, 'SHIPYARD', 'MILITARY', NULL, 1),
+	(40, 'SHIPYARD', 'MILITARY', NULL, 1),
+	(41, 'SHIPYARD', 'MILITARY', 1, 1),
+	(42, 'SHIPYARD', 'MILITARY', 2, 1),
+	(43, 'SHIPYARD', 'MILITARY', NULL, 2),
+	(44, 'SHIPYARD', 'MILITARY', 1, 2),
+	(45, 'MINING_STATION', 'PRODUCER', 1, 2),
+	(46, 'MINING_STATION', 'PRODUCER', 2, 2);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
 
 
