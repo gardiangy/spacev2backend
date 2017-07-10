@@ -2,6 +2,7 @@ package hu.voga.space.service;
 
 import hu.voga.space.entity.Building;
 import hu.voga.space.entity.Construction;
+import hu.voga.space.enums.BuildingBaseType;
 import hu.voga.space.enums.ModifierRule;
 import hu.voga.space.repository.BuildingRepository;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class BuildingService {
         building.setBldType(construction.getCtBuildingType());
         building.setPlanet(construction.getPlanet());
         building.setBldSlot(construction.getCtBuildingSlot());
+        building.setBldBaseType(construction.getCtBuildingType().getBaseType());
         for (ModifierRule modifierRule : construction.getCtBuildingType().getModifierRules()) {
             modifierService.save(modifierRule,construction.getPlanet().getSolarSystem());
         }
