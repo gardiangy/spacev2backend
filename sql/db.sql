@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `building` (
   CONSTRAINT `FK_building_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.building: ~8 rows (approximately)
+-- Dumping data for table space.building: ~10 rows (approximately)
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
 INSERT INTO `building` (`bld_id`, `bld_type`, `bld_base_type`, `bld_slot`, `pl_id`) VALUES
 	(37, 'SHIPYARD', 'MILITARY', NULL, 1),
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `construction` (
   CONSTRAINT `FK_construction_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.construction: ~1 rows (approximately)
+-- Dumping data for table space.construction: ~0 rows (approximately)
 /*!40000 ALTER TABLE `construction` DISABLE KEYS */;
 /*!40000 ALTER TABLE `construction` ENABLE KEYS */;
 
@@ -14876,6 +14876,28 @@ INSERT INTO `solar_system` (`ss_id`, `ss_type`, `ss_posx`, `ss_posy`, `ss_name`,
 	(197372, 'YELLOW_DWARF', 6911, 5079, 'YD-197372', 4, NULL),
 	(197373, 'WHITE_DWARF', 7170, 5142, 'WD-197373', 6, NULL);
 /*!40000 ALTER TABLE `solar_system` ENABLE KEYS */;
+
+
+-- Dumping structure for tábla space.trade_offer
+DROP TABLE IF EXISTS `trade_offer`;
+CREATE TABLE IF NOT EXISTS `trade_offer` (
+  `tro_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tro_from_type` varchar(255) NOT NULL,
+  `tro_from_value` bigint(20) NOT NULL,
+  `tro_to_type` varchar(255) NOT NULL,
+  `tro_to_value` bigint(20) NOT NULL,
+  `ss_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`tro_id`),
+  KEY `FK_trade_offer_solar_system` (`ss_id`),
+  CONSTRAINT `FK_trade_offer_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table space.trade_offer: ~0 rows (approximately)
+/*!40000 ALTER TABLE `trade_offer` DISABLE KEYS */;
+INSERT INTO `trade_offer` (`tro_id`, `tro_from_type`, `tro_from_value`, `tro_to_type`, `tro_to_value`, `ss_id`) VALUES
+	(2, 'TITANIUM', 1000, 'CREW', 100, 196395),
+	(3, 'ENERGY', 500, 'SUPER_PLASTIC', 300, 196395);
+/*!40000 ALTER TABLE `trade_offer` ENABLE KEYS */;
 
 
 -- Dumping structure for tábla space.user
