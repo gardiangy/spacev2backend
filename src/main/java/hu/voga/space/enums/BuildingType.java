@@ -1,6 +1,7 @@
 package hu.voga.space.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,6 +23,9 @@ public enum BuildingType implements ConstructionEnum {
     RESEARCH_LAB (500000L, "Research Lab", BuildingBaseType.RESEARCH, 300, 400, 50, "This is a Research Lab", new ArrayList<>()),
     RECRUITER (400000L, "Recruiter", BuildingBaseType.PRODUCER, 300, 300, 30, "This is a Recruiter", new ArrayList<>()),
     TRADING_STATION (500000L, "Trading Station", BuildingBaseType.UTILITY, 200, 200, 20, "This is a Trading Station", new ArrayList<>());
+
+    @JsonProperty
+    public String getValue() { return name(); }
 
     private Long buildingTime;
     private String name;

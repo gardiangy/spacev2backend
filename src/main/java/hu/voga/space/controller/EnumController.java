@@ -4,7 +4,7 @@ import hu.voga.space.controller.response.Response;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/enum")
+@RequestMapping("/api/enum")
 public class EnumController {
 
     @GetMapping("/{enumName}")
