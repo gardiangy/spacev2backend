@@ -50,4 +50,8 @@ public class ShipService {
         return shipRepository.findBySolarSystem(solarSystem);
     }
 
+    public Ship getOne(Long shipId){
+        return shipRepository.getOne(shipId);
+    }
+
 }

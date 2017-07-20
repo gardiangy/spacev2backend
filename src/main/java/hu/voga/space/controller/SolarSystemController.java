@@ -1,20 +1,19 @@
 package hu.voga.space.controller;
 
 import hu.voga.space.controller.response.Response;
-import hu.voga.space.dto.converter.PlanetConverter;
-import hu.voga.space.dto.converter.ResourceConverter;
-import hu.voga.space.dto.converter.ShipConverter;
-import hu.voga.space.dto.converter.SolarSystemConverter;
+import hu.voga.space.dto.FleetDto;
+import hu.voga.space.dto.converter.*;
+import hu.voga.space.entity.Fleet;
+import hu.voga.space.entity.Ship;
 import hu.voga.space.entity.SolarSystem;
+import hu.voga.space.service.FleetService;
 import hu.voga.space.service.ResourceService;
 import hu.voga.space.service.ShipService;
 import hu.voga.space.service.SolarSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -32,6 +31,9 @@ public class SolarSystemController {
     private ShipService shipService;
 
     @Autowired
+    private FleetService fleetService;
+
+    @Autowired
     private SolarSystemConverter solarSystemConverter;
 
     @Autowired
@@ -39,6 +41,9 @@ public class SolarSystemController {
 
     @Autowired
     private ShipConverter shipConverter;
+
+    @Autowired
+    private FleetConverter fleetConverter;
 
     @Autowired
     private ResourceConverter resourceConverter;
@@ -80,5 +85,32 @@ public class SolarSystemController {
                 .stream()
                 .map(shipConverter::convertToDto)
                 .collect(Collectors.toList()));
+    }
+
+    @RequestMapping("/{ssId}/fleet")
+    @ResponseBody
+    public Response getFleetsForSolarSystem(@PathVariable("ssId") Long ssId) {
+        return Response.createOKResponse(solarSystemService.getOne(ssId).getFleets()
+                .stream()
+                .map(fleetConverter::convertToDto)
+                .collect(Collectors.toList()));
+    }
+
+    @RequestMapping(value = "/{ssId}/fleet", method = RequestMethod.POST)
+    @ResponseBody
+    public Response createFleet(@PathVariable("ssId") Long ssId, @RequestBody FleetDto fleetDto) {
+        Fleet fleet = fleetService.save(solarSystemService.getOne(ssId), fleetDto.getName());
+        return Response.createOKResponse(fleetConverter.convertToDto(fleet));
+    }
+
+    @RequestMapping(value = "/{ssId}/fleet", method = RequestMethod.PUT)
+    @ResponseBody
+    public Response addShipsToFleet(@PathVariable("ssId") Long ssId, @RequestBody FleetDto fleetDto) {
+        List<Ship> ships = fleetDto.getShips()
+                .stream()
+                .map(shipDto -> shipService.getOne(shipDto.getId()))
+                .collect(Collectors.toList());
+        Fleet fleet = fleetService.addShipsToFleet(fleetDto.getId(),ships);
+        return Response.createOKResponse(fleetConverter.convertToDto(fleet));
     }
 }

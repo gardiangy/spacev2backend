@@ -45,5 +45,8 @@ public class SolarSystem {
     private List<Ship> ships;
 
     @OneToMany(mappedBy = "solarSystem", fetch = FetchType.LAZY)
+    private List<Fleet> fleets;
+
+    @OneToMany(mappedBy = "solarSystem", fetch = FetchType.LAZY)
     private List<Modifier> modifiers;
 }

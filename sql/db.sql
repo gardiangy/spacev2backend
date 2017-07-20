@@ -58,21 +58,8 @@ CREATE TABLE IF NOT EXISTS `cargo` (
   CONSTRAINT `FK__fleet` FOREIGN KEY (`fl_id`) REFERENCES `fleet` (`fl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.cargo: ~12 rows (approximately)
+-- Dumping data for table space.cargo: ~0 rows (approximately)
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-INSERT INTO `cargo` (`cg_id`, `cg_type`, `cg_sub_type`, `cg_amount`, `fl_id`) VALUES
-	(103, 'RESOURCE', 'ZENIT', 200, 59),
-	(104, 'RESOURCE', 'ZENIUM', 200, 59),
-	(105, 'RESOURCE', 'ZENIT', 200, 60),
-	(106, 'RESOURCE', 'ZENIUM', 200, 60),
-	(107, 'RESOURCE', 'ZENIUM', 200, 61),
-	(108, 'RESOURCE', 'ZENIT', 200, 61),
-	(109, 'RESOURCE', 'ZENIT', 200, 62),
-	(110, 'RESOURCE', 'ZENIUM', 200, 62),
-	(111, 'RESOURCE', 'ZENIT', 200, 63),
-	(112, 'RESOURCE', 'ZENIUM', 200, 63),
-	(113, 'RESOURCE', 'ZENIUM', 200, 64),
-	(114, 'RESOURCE', 'ZENIT', 200, 64);
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 
 
@@ -90,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `construction` (
   PRIMARY KEY (`ct_id`),
   KEY `FK_construction_planet_slot` (`pl_id`),
   CONSTRAINT `FK_construction_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.construction: ~0 rows (approximately)
 /*!40000 ALTER TABLE `construction` DISABLE KEYS */;
@@ -145,30 +132,16 @@ CREATE TABLE IF NOT EXISTS `fleet` (
   `fl_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `fl_name` varchar(255) DEFAULT NULL,
   `fl_speed` double DEFAULT NULL,
-  `fl_pos_x` double DEFAULT NULL,
-  `fl_pos_y` double DEFAULT NULL,
-  `fl_target_x` double DEFAULT NULL,
-  `fl_target_y` double DEFAULT NULL,
-  `fl_on_planet` tinyint(1) NOT NULL,
-  `fl_moving` tinyint(1) NOT NULL,
-  `fl_last_calculated` datetime DEFAULT NULL,
-  `pl_id` bigint(20) NOT NULL DEFAULT '0',
-  `pl_target_id` bigint(20) DEFAULT NULL,
+  `ss_id` bigint(20) NOT NULL,
   PRIMARY KEY (`fl_id`),
-  KEY `FK_fleet_planet` (`pl_id`),
-  CONSTRAINT `FK_fleet_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+  KEY `FK_fleet_solar_system` (`ss_id`),
+  CONSTRAINT `FK_fleet_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.fleet: ~7 rows (approximately)
+-- Dumping data for table space.fleet: ~0 rows (approximately)
 /*!40000 ALTER TABLE `fleet` DISABLE KEYS */;
-INSERT INTO `fleet` (`fl_id`, `fl_name`, `fl_speed`, `fl_pos_x`, `fl_pos_y`, `fl_target_x`, `fl_target_y`, `fl_on_planet`, `fl_moving`, `fl_last_calculated`, `pl_id`, `pl_target_id`) VALUES
-	(3, 'asd', 5, -475.5218557184, 90.17780405969191, -475.55553875020604, 90.18391436048898, 1, 0, '2016-02-06 13:13:19', 1, NULL),
-	(59, NULL, 5, -40.33697896072936, -291.05344838212415, -40.350563004113994, -291.0475967206159, 1, 0, '2016-02-07 19:33:33', 1, 2),
-	(60, NULL, 5, -443.3235462937267, 135.01505301138437, -443.31430662355785, 135.04477615202478, 1, 0, '2016-02-07 19:43:08', 1, 2),
-	(61, NULL, 5, 63.24726266838656, -289.6590920959367, 63.23570869353208, -289.65531354443215, 1, 0, '2016-02-07 19:52:52', 1, 2),
-	(62, NULL, 5, 433.17994457314126, -145.93877020132078, 433.11603198086414, -145.8954298701355, 1, 0, '2016-02-07 19:57:36', 1, 2),
-	(63, NULL, 5, 355.5219056931571, -205.36576534895778, 355.461935546874, -205.35454034947026, 0, 1, '2016-02-07 20:01:10', 1, 2),
-	(64, NULL, 5, 544.1827549431058, 233.08625577565928, -46.527080265280446, -290.7330261191578, 0, 1, '2016-02-07 20:01:10', 1, 2);
+INSERT INTO `fleet` (`fl_id`, `fl_name`, `fl_speed`, `ss_id`) VALUES
+	(65, 'flotta', NULL, 194067);
 /*!40000 ALTER TABLE `fleet` ENABLE KEYS */;
 
 
@@ -10342,14 +10315,16 @@ CREATE TABLE IF NOT EXISTS `ship` (
   `fl_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ship_id`),
   KEY `FK_unit_planet` (`ss_id`),
+  KEY `FK_ship_fleet` (`fl_id`),
+  CONSTRAINT `FK_ship_fleet` FOREIGN KEY (`fl_id`) REFERENCES `fleet` (`fl_id`),
   CONSTRAINT `FK_unit_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.ship: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ship` DISABLE KEYS */;
 INSERT INTO `ship` (`ship_id`, `ship_type`, `ship_attack`, `ship_defense`, `ship_speed`, `ship_rank`, `ship_count`, `ss_id`, `fl_id`) VALUES
-	(9, 'SMALL_SHIP', 1, 1, 1, 1, 2, 194067, NULL),
-	(10, 'MEDIUM_SHIP', 2, 2, 2, 1, 2, 194067, NULL);
+	(9, 'VIPER', 1, 1, 1, 1, 2, 194067, 65),
+	(10, 'VIKING', 2, 2, 2, 1, 2, 194067, NULL);
 /*!40000 ALTER TABLE `ship` ENABLE KEYS */;
 
 
@@ -14890,13 +14865,14 @@ CREATE TABLE IF NOT EXISTS `trade_offer` (
   PRIMARY KEY (`tro_id`),
   KEY `FK_trade_offer_solar_system` (`ss_id`),
   CONSTRAINT `FK_trade_offer_solar_system` FOREIGN KEY (`ss_id`) REFERENCES `solar_system` (`ss_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.trade_offer: ~0 rows (approximately)
+-- Dumping data for table space.trade_offer: ~3 rows (approximately)
 /*!40000 ALTER TABLE `trade_offer` DISABLE KEYS */;
 INSERT INTO `trade_offer` (`tro_id`, `tro_from_type`, `tro_from_value`, `tro_to_type`, `tro_to_value`, `ss_id`) VALUES
 	(2, 'TITANIUM', 1000, 'CREW', 100, 196395),
-	(3, 'ENERGY', 500, 'SUPER_PLASTIC', 300, 196395);
+	(3, 'ENERGY', 500, 'SUPER_PLASTIC', 300, 196395),
+	(7, 'TITANIUM', 500, 'CREW', 30, 196395);
 /*!40000 ALTER TABLE `trade_offer` ENABLE KEYS */;
 
 

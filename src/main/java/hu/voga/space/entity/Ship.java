@@ -1,6 +1,5 @@
 package hu.voga.space.entity;
 
-import hu.voga.space.enums.BuildingType;
 import hu.voga.space.enums.ShipType;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +37,11 @@ public class Ship {
     @Column(name = "ship_count")
     private Long shipCount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ss_id")
     private SolarSystem solarSystem;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fl_id", nullable = true)
+    private Fleet fleet;
 }
