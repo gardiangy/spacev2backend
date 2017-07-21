@@ -1,20 +1,21 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.7.10-log - MySQL Community Server (GPL)
+-- Server version:               5.7.18-log - MySQL Community Server (GPL)
 -- Server OS:                    Win64
--- HeidiSQL Verzió:              9.1.0.4867
+-- HeidiSQL Verzió:              9.4.0.5125
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
 
 -- Dumping database structure for space
 DROP DATABASE IF EXISTS `space`;
 CREATE DATABASE IF NOT EXISTS `space` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `space`;
-
 
 -- Dumping structure for tábla space.building
 DROP TABLE IF EXISTS `building`;
@@ -27,23 +28,13 @@ CREATE TABLE IF NOT EXISTS `building` (
   PRIMARY KEY (`bld_id`),
   KEY `FK_building_planet` (`pl_id`),
   CONSTRAINT `FK_building_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
--- Dumping data for table space.building: ~10 rows (approximately)
+-- Dumping data for table space.building: ~1 rows (approximately)
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
 INSERT INTO `building` (`bld_id`, `bld_type`, `bld_base_type`, `bld_slot`, `pl_id`) VALUES
-	(37, 'SHIPYARD', 'MILITARY', NULL, 1),
-	(38, 'SHIPYARD', 'MILITARY', NULL, 1),
-	(39, 'SHIPYARD', 'MILITARY', NULL, 1),
-	(40, 'SHIPYARD', 'MILITARY', NULL, 1),
-	(41, 'SHIPYARD', 'MILITARY', 1, 1),
-	(42, 'SHIPYARD', 'MILITARY', 2, 1),
-	(43, 'SHIPYARD', 'MILITARY', NULL, 2),
-	(44, 'SHIPYARD', 'MILITARY', 1, 2),
-	(45, 'MINING_STATION', 'PRODUCER', 1, 2),
-	(46, 'MINING_STATION', 'PRODUCER', 2, 2);
+	(47, 'SHIPYARD', 'MILITARY', 0, 1);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.cargo
 DROP TABLE IF EXISTS `cargo`;
@@ -62,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `cargo` (
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 
-
 -- Dumping structure for tábla space.construction
 DROP TABLE IF EXISTS `construction`;
 CREATE TABLE IF NOT EXISTS `construction` (
@@ -77,12 +67,11 @@ CREATE TABLE IF NOT EXISTS `construction` (
   PRIMARY KEY (`ct_id`),
   KEY `FK_construction_planet_slot` (`pl_id`),
   CONSTRAINT `FK_construction_planet` FOREIGN KEY (`pl_id`) REFERENCES `planet` (`pl_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table space.construction: ~0 rows (approximately)
 /*!40000 ALTER TABLE `construction` DISABLE KEYS */;
 /*!40000 ALTER TABLE `construction` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.discovered
 DROP TABLE IF EXISTS `discovered`;
@@ -125,7 +114,6 @@ INSERT INTO `discovered` (`disc_id`, `disc_date`, `user_uuid`, `ss_id`) VALUES
 	(22, '2017-06-27 22:45:56', '3f22ac02-243a-46d3-a0ff-cb6284f1f97e', 196926);
 /*!40000 ALTER TABLE `discovered` ENABLE KEYS */;
 
-
 -- Dumping structure for tábla space.fleet
 DROP TABLE IF EXISTS `fleet`;
 CREATE TABLE IF NOT EXISTS `fleet` (
@@ -143,7 +131,6 @@ CREATE TABLE IF NOT EXISTS `fleet` (
 INSERT INTO `fleet` (`fl_id`, `fl_name`, `fl_speed`, `ss_id`) VALUES
 	(65, 'flotta', NULL, 194067);
 /*!40000 ALTER TABLE `fleet` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.grid
 DROP TABLE IF EXISTS `grid`;
@@ -10162,7 +10149,6 @@ INSERT INTO `grid` (`grid_id`, `grid_x`, `grid_y`, `ss_id`) VALUES
 	(90000, 4740, 780, 195363);
 /*!40000 ALTER TABLE `grid` ENABLE KEYS */;
 
-
 -- Dumping structure for tábla space.modifier
 DROP TABLE IF EXISTS `modifier`;
 CREATE TABLE IF NOT EXISTS `modifier` (
@@ -10180,7 +10166,6 @@ CREATE TABLE IF NOT EXISTS `modifier` (
 INSERT INTO `modifier` (`mod_id`, `mod_type`, `mod_calc_type`, `mod_resource_type`, `mod_value`, `ss_id`) VALUES
 	(2, 'RESOURCE_RATE', 'PERCENTAGE', 'TITANIUM', 1, 194067);
 /*!40000 ALTER TABLE `modifier` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.planet
 DROP TABLE IF EXISTS `planet`;
@@ -10204,7 +10189,6 @@ INSERT INTO `planet` (`pl_id`, `pl_type`, `pl_size`, `pl_slots`, `ss_id`) VALUES
 	(4, 'ROCK', 120, 9, 194068),
 	(5, 'ROCK', 120, 9, 194068);
 /*!40000 ALTER TABLE `planet` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.planet_slot
 DROP TABLE IF EXISTS `planet_slot`;
@@ -10275,7 +10259,6 @@ INSERT INTO `planet_slot` (`pls_id`, `pl_id`, `pls_code`, `pls_type`, `pls_order
 	(54, 5, 'BT1', 'PLANET', 8);
 /*!40000 ALTER TABLE `planet_slot` ENABLE KEYS */;
 
-
 -- Dumping structure for tábla space.resource
 DROP TABLE IF EXISTS `resource`;
 CREATE TABLE IF NOT EXISTS `resource` (
@@ -10294,12 +10277,11 @@ CREATE TABLE IF NOT EXISTS `resource` (
 -- Dumping data for table space.resource: ~4 rows (approximately)
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
 INSERT INTO `resource` (`rs_id`, `rs_name`, `rs_type`, `rs_rate`, `rs_amount`, `rs_last_updated`, `ss_id`) VALUES
-	(1, 'Titanium', 'TITANIUM', 1.01, 345872, '2017-07-06 23:49:44', 194067),
-	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 486791, '2017-07-06 23:49:44', 194067),
-	(3, 'gyuri', 'CREW', 0.3, 207967, '2017-07-06 23:49:44', 194067),
-	(4, 'Energy', 'ENERGY', 0.2, 136131, '2017-07-06 23:49:44', 194067);
+	(1, 'Titanium', 'TITANIUM', 1.01, 1618895, '2017-07-21 13:59:19', 194067),
+	(2, 'SuperPlastic', 'SUPER_PLASTIC', 0.7, 1369157, '2017-07-21 13:59:19', 194067),
+	(3, 'gyuri', 'CREW', 0.3, 586082, '2017-07-21 13:59:19', 194067),
+	(4, 'Energy', 'ENERGY', 0.2, 388025, '2017-07-21 13:59:19', 194067);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.ship
 DROP TABLE IF EXISTS `ship`;
@@ -10326,7 +10308,6 @@ INSERT INTO `ship` (`ship_id`, `ship_type`, `ship_attack`, `ship_defense`, `ship
 	(9, 'VIPER', 1, 1, 1, 1, 2, 194067, 65),
 	(10, 'VIKING', 2, 2, 2, 1, 2, 194067, NULL);
 /*!40000 ALTER TABLE `ship` ENABLE KEYS */;
-
 
 -- Dumping structure for tábla space.solar_system
 DROP TABLE IF EXISTS `solar_system`;
@@ -14852,7 +14833,6 @@ INSERT INTO `solar_system` (`ss_id`, `ss_type`, `ss_posx`, `ss_posy`, `ss_name`,
 	(197373, 'WHITE_DWARF', 7170, 5142, 'WD-197373', 6, NULL);
 /*!40000 ALTER TABLE `solar_system` ENABLE KEYS */;
 
-
 -- Dumping structure for tábla space.trade_offer
 DROP TABLE IF EXISTS `trade_offer`;
 CREATE TABLE IF NOT EXISTS `trade_offer` (
@@ -14875,7 +14855,6 @@ INSERT INTO `trade_offer` (`tro_id`, `tro_from_type`, `tro_from_value`, `tro_to_
 	(7, 'TITANIUM', 500, 'CREW', 30, 196395);
 /*!40000 ALTER TABLE `trade_offer` ENABLE KEYS */;
 
-
 -- Dumping structure for tábla space.user
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
@@ -14893,6 +14872,7 @@ INSERT INTO `user` (`uuid`, `name`, `email`, `rank`) VALUES
 	('5bcc54a6-fb0b-474f-bd78-44b7860d2eda', 'mogyi', 'mogyi@misoft.hu', 'SEAMAN'),
 	('6b3f019d-1ae7-4abb-b9e7-4397d9d83251', 'elfarkasz', 'farok@misoft.hu', 'FLEET_ADMIRAL');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
