@@ -12,6 +12,10 @@ public class BuildingDto {
     private Long id;
     private BuildingType type;
     private Integer slot;
+    private Integer level;
+    private Integer upgradeTitaniumCost;
+    private Integer upgradeCrewCost;
+    private Integer upgradeEnergyCost;
     private BuildingBaseType baseType;
 
     public BuildingDto() {

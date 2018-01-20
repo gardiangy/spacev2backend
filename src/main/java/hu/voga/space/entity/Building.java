@@ -32,6 +32,9 @@ public class Building {
     @Column(name = "bld_slot")
     private Integer bldSlot;
 
+    @Column(name = "bld_level")
+    private Integer bldLevel;
+
     @ManyToOne
     @JoinColumn(name = "pl_id")
     private Planet planet;
