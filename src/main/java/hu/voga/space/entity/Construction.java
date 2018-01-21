@@ -49,4 +49,8 @@ public class Construction {
     @ManyToOne
     @JoinColumn(name = "pl_id")
     private Planet planet;
+
+    @ManyToOne
+    @JoinColumn(name = "bld_id")
+    private Building building;
 }

@@ -10,6 +10,7 @@ public  class PlanetConverter extends ModelDtoConverter<Planet, PlanetDto> {
 
     @Override
     public PlanetDto convertToDto(Planet entity) {
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         return modelMapper.map(entity, PlanetDto.class);
     }
 

@@ -52,13 +52,13 @@ public class ConstructionService {
   @Transactional
   public Construction constructBuilding(BuildingType buildingType, Integer buildingSlot, Long planetId) throws SpaceException {
     Planet planet = planetService.getOne(planetId);
-    return createConstruction(ConstructionType.BUILDING, buildingSlot, buildingType, planet);
+    return createConstruction(ConstructionType.BUILDING, buildingSlot, buildingType, planet, null);
   }
 
   @Transactional
   public Construction constructShip(ShipType shipType, Long planetId) throws SpaceException {
     Planet planet = planetService.getOne(planetId);
-    return createConstruction(ConstructionType.SHIP, null, shipType, planet);
+    return createConstruction(ConstructionType.SHIP, null, shipType, planet, null);
   }
 
   @Transactional
@@ -68,10 +68,11 @@ public class ConstructionService {
             .upgradeCost(buildingService.calculateUpgradeCost(building))
             .upgradeTime(buildingService.calculateUpgradeTime(building))
             .build();
-    return createConstruction(ConstructionType.UPGRADE, building.getBldSlot(), buildingUpgrade, building.getPlanet());
+    return createConstruction(ConstructionType.UPGRADE, building.getBldSlot(), buildingUpgrade, building.getPlanet(), building);
   }
 
-  private Construction createConstruction(ConstructionType constructionType, Integer buildingSlot, ConstructionEnum constructionEnum, Planet planet) throws SpaceException {
+  private Construction createConstruction(ConstructionType constructionType, Integer buildingSlot,
+                                          ConstructionEnum constructionEnum, Planet planet, Building building) throws SpaceException {
     resourceService.checkAndDeductResources(constructionEnum, planet.getSolarSystem());
 
     Construction construction = new Construction();
@@ -87,6 +88,7 @@ public class ConstructionService {
     LocalDateTime start = LocalDateTime.now();
     construction.setCtEnd(Date.from(start.plusSeconds(60).atZone(ZoneId.systemDefault()).toInstant()));
     construction.setPlanet(planet);
+    construction.setBuilding(building);
     final Construction savedConstruction = constructionRepository.save(construction);
     constructionScheduler.scheduleConstruction(savedConstruction);
     return savedConstruction;

@@ -41,7 +41,7 @@ public class BuildingService {
     }
 
     public Building upgradeBuilding(Construction construction){
-        final Building building = buildingRepository.findByPlanetAndBldSlot(construction.getPlanet(), construction.getCtBuildingSlot());
+        final Building building = construction.getBuilding();
         building.setBldLevel(building.getBldLevel() + 1);
         return buildingRepository.save(building);
     }
