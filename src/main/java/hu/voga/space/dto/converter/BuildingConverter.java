@@ -25,6 +25,7 @@ public  class BuildingConverter extends ModelDtoConverter<Building, BuildingDto>
         dto.setUpgradeTitaniumCost(upgradeCost.get(ResourceType.TITANIUM));
         dto.setUpgradeEnergyCost(upgradeCost.get(ResourceType.ENERGY));
         dto.setUpgradeCrewCost(upgradeCost.get(ResourceType.CREW));
+        dto.setUpgradeTime(buildingService.calculateUpgradeTime(entity));
         return dto;
     }
 

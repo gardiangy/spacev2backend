@@ -1,6 +1,7 @@
 package hu.voga.space.service;
 
 import com.google.common.collect.ImmutableMap;
+import hu.voga.space.dto.BuildingUpgradeDto;
 import hu.voga.space.entity.*;
 import hu.voga.space.enums.*;
 import hu.voga.space.exception.SpaceException;
@@ -60,6 +61,16 @@ public class ConstructionService {
     return createConstruction(ConstructionType.SHIP, null, shipType, planet);
   }
 
+  @Transactional
+  public Construction upgradeBuilding(Building building) throws SpaceException {
+    final BuildingUpgradeDto buildingUpgrade = BuildingUpgradeDto.builder()
+            .building(building)
+            .upgradeCost(buildingService.calculateUpgradeCost(building))
+            .upgradeTime(buildingService.calculateUpgradeTime(building))
+            .build();
+    return createConstruction(ConstructionType.UPGRADE, building.getBldSlot(), buildingUpgrade, building.getPlanet());
+  }
+
   private Construction createConstruction(ConstructionType constructionType, Integer buildingSlot, ConstructionEnum constructionEnum, Planet planet) throws SpaceException {
     resourceService.checkAndDeductResources(constructionEnum, planet.getSolarSystem());
 
@@ -91,6 +102,9 @@ public class ConstructionService {
         break;
       case SHIP:
         shipService.save(construction);
+        break;
+      case  UPGRADE:
+        buildingService.upgradeBuilding(construction);
         break;
     }
 

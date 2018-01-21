@@ -20,6 +20,7 @@ public class BuildingDto {
     private Integer upgradeTitaniumCost;
     private Integer upgradeCrewCost;
     private Integer upgradeEnergyCost;
+    private Integer upgradeTime;
     private BuildingBaseType baseType;
     private List<BuildingItemDto> buildingItems;
 

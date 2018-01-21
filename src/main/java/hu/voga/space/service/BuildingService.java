@@ -40,6 +40,12 @@ public class BuildingService {
         return buildingRepository.save(building);
     }
 
+    public Building upgradeBuilding(Construction construction){
+        final Building building = buildingRepository.findByPlanetAndBldSlot(construction.getPlanet(), construction.getCtBuildingSlot());
+        building.setBldLevel(building.getBldLevel() + 1);
+        return buildingRepository.save(building);
+    }
+
     public Building getOne(Long bldId) { return buildingRepository.getOne(bldId); }
 
     public Map<ResourceType, Integer> calculateUpgradeCost(Building building){
@@ -53,4 +59,7 @@ public class BuildingService {
         return upgradeCost;
     }
 
+    public int calculateUpgradeTime(Building building){
+       return (int) (building.getBldType().getBuildingTime() * Math.pow(1.1, building.getBldLevel() + 1));
+    }
 }
