@@ -11,6 +11,7 @@ public  class ConstructionConverter extends ModelDtoConverter<Construction, Cons
 
     @Override
     public ConstructionDto convertToDto(Construction entity) {
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         return modelMapper.map(entity, ConstructionDto.class);
     }
 
