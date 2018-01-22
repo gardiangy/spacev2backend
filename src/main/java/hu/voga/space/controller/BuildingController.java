@@ -31,15 +31,23 @@ public class BuildingController {
 
     @RequestMapping("/{bldId}")
     @ResponseBody
-    public Response getBuildingById(@PathVariable("bldId") Long bldId){
-        return Response.createOKResponse( buildingConverter.convertToDto( buildingService.getOne(bldId) ) );
+    public Response getBuildingById(@PathVariable("bldId") Long bldId) {
+        return Response.createOKResponse(buildingConverter.convertToDto(buildingService.getOne(bldId)));
     }
 
     @RequestMapping("/{bldId}/upgrade")
     @ResponseBody
     public Response upgradeBuilding(@PathVariable("bldId") Long bldId) throws SpaceException {
         final Building building = buildingService.getOne(bldId);
-        return Response.createOKResponse( constructionConverter.convertToDto( constructionService.upgradeBuilding(building) ) );
+        return Response.createOKResponse(constructionConverter.convertToDto(constructionService.upgradeBuilding(building)));
+    }
+
+    @RequestMapping(value = "/{bldId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Response deleteBuildingById(@PathVariable("bldId") Long bldId) {
+        Building building = buildingService.getOne(bldId);
+        buildingService.deleteBuilding(building);
+        return Response.createOKResponse("OK");
     }
 
 }

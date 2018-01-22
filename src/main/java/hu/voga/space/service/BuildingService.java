@@ -47,6 +47,10 @@ public class BuildingService {
         return buildingRepository.save(building);
     }
 
+    public void deleteBuilding(Building building){
+        buildingRepository.delete(building);
+    }
+
     public Building getOne(Long bldId) { return buildingRepository.getOne(bldId); }
 
     public Map<ResourceType, Integer> calculateUpgradeCost(Building building){
