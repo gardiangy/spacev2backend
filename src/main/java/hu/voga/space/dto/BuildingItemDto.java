@@ -1,5 +1,6 @@
 package hu.voga.space.dto;
 
+import hu.voga.space.enums.ResearchType;
 import hu.voga.space.enums.ShipType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import lombok.Setter;
 public class BuildingItemDto {
 
     private ShipType shipType;
+    private ResearchType researchType;
     private boolean available;
 
     public BuildingItemDto() {

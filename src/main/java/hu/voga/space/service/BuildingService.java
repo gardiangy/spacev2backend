@@ -33,6 +33,7 @@ public class BuildingService {
         building.setBldType(construction.getCtBuildingType());
         building.setPlanet(construction.getPlanet());
         building.setBldSlot(construction.getCtBuildingSlot());
+        building.setBldLevel(1);
         building.setBldBaseType(construction.getCtBuildingType().getBaseType());
         for (ModifierRule modifierRule : construction.getCtBuildingType().getModifierRules()) {
             modifierService.save(modifierRule,construction.getPlanet().getSolarSystem());

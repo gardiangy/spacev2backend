@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 public enum ModifierRule {
 
-    MINE_RULE(ModifierType.RESOURCE_RATE, ModifierCalcType.PERCENTAGE, ResourceType.TITANIUM,1d);
+    MINE_TITANIUM_1_PERCENT_FASTER(ModifierType.RESOURCE_RATE, ModifierCalcType.PERCENTAGE, ResourceType.TITANIUM,0.01d),
+    REFINE_TITANIUM_1_PERCENT_FASTER(ModifierType.RESOURCE_RATE, ModifierCalcType.PERCENTAGE, ResourceType.TITANIUM,0.01d);
 
     private ModifierType modifierType;
     private ModifierCalcType modifierCalcType;

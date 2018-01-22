@@ -2,6 +2,7 @@ package hu.voga.space.dto;
 
 import hu.voga.space.enums.BuildingBaseType;
 import hu.voga.space.enums.BuildingType;
+import hu.voga.space.enums.ResearchType;
 import hu.voga.space.enums.ShipType;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,11 +26,5 @@ public class BuildingDto {
     private List<BuildingItemDto> buildingItems;
 
     public BuildingDto() {
-        buildingItems = new ArrayList<>();
-        for (ShipType shipType : ShipType.values()) {
-            buildingItems.add(BuildingItemDto.builder()
-                    .shipType(shipType)
-                    .available(true).build());
-        }
     }
 }

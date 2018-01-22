@@ -15,7 +15,7 @@ import java.util.List;
 public enum BuildingType implements ConstructionEnum {
 
     SHIPYARD (360000L, "Shipyard", BuildingBaseType.MILITARY, 120, 200, 30, "This is a Shipyard", new ArrayList<>()),
-    MINING_STATION (200000L, "Mining Station", BuildingBaseType.PRODUCER, 100, 150, 20, "This is a Mining Station", Arrays.asList(ModifierRule.MINE_RULE)),
+    MINING_STATION (200000L, "Mining Station", BuildingBaseType.PRODUCER, 100, 150, 20, "This is a Mining Station", Arrays.asList(ModifierRule.MINE_TITANIUM_1_PERCENT_FASTER)),
     REFINERY (150000L, "Refinery", BuildingBaseType.UTILITY, 150, 100, 20, "This is a Refinery", new ArrayList<>()),
     COLONY (600000L, "Colony", BuildingBaseType.PRODUCER, 500, 400, 200, "This is a Colony", new ArrayList<>()),
     POWER_PLANT (300000L, "Power Plant", BuildingBaseType.PRODUCER, 250, 100, 30, "This is a Power Plant", new ArrayList<>()),
